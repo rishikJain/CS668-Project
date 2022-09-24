@@ -1,0 +1,4 @@
+ID,Asset,Probability of Compromise
+1,DB server,0.05
+2,PC,0.1
+3,Switch,0.01
