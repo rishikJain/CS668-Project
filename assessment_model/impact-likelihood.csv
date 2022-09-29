@@ -1,1 +1,9 @@
-ID,Impact,Likelihood
+Function ID,Impact,Likelihood
+1,60,0.3
+2,36,0.1
+3,84,0.2
+4,5,0.2
+5,18,0.2
+6,56,0.2
+7,96,0.4
+8,0,0.4
