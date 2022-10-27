@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
 
 const dataSchema = new mongoose.Schema({
-    name: {
+    asset: {
         required: true,
         type: String
     },
-    age: {
+    deviceType: {
         required: true,
-        type: Number
+        type: String
+    },
+    vulnerabilities: {
+        type: String
     }
 })
 
