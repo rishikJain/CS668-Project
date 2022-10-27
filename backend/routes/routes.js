@@ -1,5 +1,6 @@
 const express = require('express');
 const Model = require('../models/model');
+const threatVulMapping = require('../models/threadVulMapping')
 const router = express.Router();
 
 //Post Method
@@ -18,7 +19,7 @@ router.post('/post', async (req, res) => {
     }
 })
 
-//Get all Method
+//Get all assets
 router.get('/getAll', async (req, res) => {
     try {
         const data = await Model.find();
@@ -29,7 +30,7 @@ router.get('/getAll', async (req, res) => {
     }
 })
 
-//Get by ID Method
+//Get assets by ID 
 router.get('/getOne/:id', async (req, res) => {
     try {
         const data = await Model.findById(req.params.id);
@@ -40,7 +41,7 @@ router.get('/getOne/:id', async (req, res) => {
     }
 })
 
-//Update by ID Method
+//Update assets by ID 
 router.patch('/update/:id', async (req, res) => {
     try {
         const id = req.params.id;
@@ -58,7 +59,7 @@ router.patch('/update/:id', async (req, res) => {
     }
 })
 
-//Delete by ID Method
+//Delete assets by ID Method
 router.delete('/delete/:id', async (req, res) => {
     try {
         const id = req.params.id;
@@ -69,5 +70,19 @@ router.delete('/delete/:id', async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 })
+
+//Get all assets
+router.get('/getAllVul', async (req, res) => {
+    const a = req.query.skip;
+    const b = req.query.limit
+    try {
+        const data = await threatVulMapping.find({}).skip(a).limit(b);
+        res.json(data)
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
 
 module.exports = router;
