@@ -55,7 +55,7 @@ const options1 = [
 ];
 
  const Risk = (props) => {
-    const { handleSubmit, reset, register, setValue } = useForm();
+  const { handleSubmit, reset, register, setValue } = useForm();
   const [data, setData] = useState(null);
 
   React.useEffect(() => {
@@ -67,8 +67,10 @@ const options1 = [
 
   return(
     <ThemeProvider theme={theme}>
-       <form onSubmit={handleSubmit(data => setData(data))} className="form">
+      <div className="main">
+      <form onSubmit={handleSubmit(data => setData(data))} className="form">
          <div className="container">
+            <h2>RiskManagement and Vulnerability assessment</h2>
             <div>
       <SingleSelect
         name="singleSelect"
@@ -101,10 +103,10 @@ const options1 = [
         }}
       />
            </div>
+           <ButtonResult {...{ data, reset, defaultValues }} />
          </div>
-
-        <ButtonResult {...{ data, reset, defaultValues }} />
        </form>
+      </div>
     </ThemeProvider> 
    )
 
