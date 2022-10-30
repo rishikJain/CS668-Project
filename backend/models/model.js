@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dataSchema = new mongoose.Schema({
     asset: {
         required: true,
-        type: String
+        type: [String]
     },
     deviceType: {
         required: true,
