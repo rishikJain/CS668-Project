@@ -9,6 +9,9 @@ const dataSchema = new mongoose.Schema({
         required: true,
         type: String
     },
+    priority : {
+        type : Number
+    },
     vulnerabilities: {
         type: String
     }

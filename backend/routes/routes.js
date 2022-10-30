@@ -7,7 +7,8 @@ const router = express.Router();
 router.post('/post', async (req, res) => {
     const data = new Model({
         asset: req.body.asset,
-        deviceType: req.body.deviceType 
+        deviceType: req.body.deviceType,
+        priority : req.body.priority
     })
 
     try {
