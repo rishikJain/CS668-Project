@@ -6,9 +6,7 @@ const router = express.Router();
 //Post Method
 router.post('/post', async (req, res) => {
     const data = new Model({
-        asset: req.body.asset,
-        deviceType: req.body.deviceType,
-        priority : req.body.priority
+        asset: req.body.asset
     })
 
     try {
