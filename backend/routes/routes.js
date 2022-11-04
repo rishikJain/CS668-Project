@@ -11,7 +11,20 @@ router.post('/post', async (req, res) => {
 
     try {
         const dataToSave = await data.save();
-        res.status(200).json(dataToSave)
+        res.status(200).json([
+            {
+                "asset": "desktop",
+                "deviceType": "PC",
+                "priority": 1,
+                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
+            },
+            {
+                "asset": "desktop2",
+                "deviceType": "NETWORK",
+                "priority": 2,
+                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
+            }
+        ])
     }
     catch (error) {
         res.status(400).json({ message: error.message })
