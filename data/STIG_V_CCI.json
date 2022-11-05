@@ -1,0 +1,939 @@
+[
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214944r610931_rule",
+        "Legacy_Vuln": "V-75439",
+        "Legacy_SV": "SV-90119",
+        "CCI Ids": [
+            "CCI-000056",
+            "CCI-000058",
+            "CCI-000060"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214949r610931_rule",
+        "Legacy_Vuln": "V-75449",
+        "Legacy_SV": "SV-90129",
+        "CCI Ids": [
+            "CCI-000192"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214950r610931_rule",
+        "Legacy_Vuln": "V-75451",
+        "Legacy_SV": "SV-90131",
+        "CCI Ids": [
+            "CCI-000193"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214951r610931_rule",
+        "Legacy_Vuln": "V-75453",
+        "Legacy_SV": "SV-90133",
+        "CCI Ids": [
+            "CCI-000194"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214952r610931_rule",
+        "Legacy_Vuln": "V-75455",
+        "Legacy_SV": "SV-90135",
+        "CCI Ids": [
+            "CCI-001619"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214953r610931_rule",
+        "Legacy_Vuln": "V-75457",
+        "Legacy_SV": "SV-90137",
+        "CCI Ids": [
+            "CCI-000195"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214959r610931_rule",
+        "Legacy_Vuln": "V-75471",
+        "Legacy_SV": "SV-90151",
+        "CCI Ids": [
+            "CCI-000198"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214960r610931_rule",
+        "Legacy_Vuln": "V-75473",
+        "Legacy_SV": "SV-90153",
+        "CCI Ids": [
+            "CCI-000199"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214962r610931_rule",
+        "Legacy_Vuln": "V-75477",
+        "Legacy_SV": "SV-90157",
+        "CCI Ids": [
+            "CCI-000205"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214963r610931_rule",
+        "Legacy_Vuln": "V-75479",
+        "Legacy_SV": "SV-90159",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214964r610931_rule",
+        "Legacy_Vuln": "V-75481",
+        "Legacy_SV": "SV-90161",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214976r610931_rule",
+        "Legacy_Vuln": "V-75503",
+        "Legacy_SV": "SV-90183",
+        "CCI Ids": [
+            "CCI-002450"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214977r610931_rule",
+        "Legacy_Vuln": "V-75505",
+        "Legacy_SV": "SV-90185",
+        "CCI Ids": [
+            "CCI-000213"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214982r610931_rule",
+        "Legacy_Vuln": "V-75515",
+        "Legacy_SV": "SV-90195",
+        "CCI Ids": [
+            "CCI-002696"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214995r610931_rule",
+        "Legacy_Vuln": "V-80957",
+        "Legacy_SV": "SV-95669",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214996r610931_rule",
+        "Legacy_Vuln": "V-75543",
+        "Legacy_SV": "SV-90223",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-214999r610931_rule",
+        "Legacy_Vuln": "V-75549",
+        "Legacy_SV": "SV-90229",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215005r610931_rule",
+        "Legacy_Vuln": "V-75561",
+        "Legacy_SV": "SV-90241",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215032r610931_rule",
+        "Legacy_Vuln": "V-75617",
+        "Legacy_SV": "SV-90297",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000130",
+            "CCI-000131",
+            "CCI-000132",
+            "CCI-000133",
+            "CCI-000134",
+            "CCI-000135",
+            "CCI-000154",
+            "CCI-000158",
+            "CCI-001464",
+            "CCI-001487",
+            "CCI-001814",
+            "CCI-001875",
+            "CCI-001876",
+            "CCI-001877",
+            "CCI-001878",
+            "CCI-001880",
+            "CCI-001914",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215033r610931_rule",
+        "Legacy_Vuln": "V-80959",
+        "Legacy_SV": "SV-95671",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215050r610931_rule",
+        "Legacy_Vuln": "V-75653",
+        "Legacy_SV": "SV-90333",
+        "CCI Ids": [
+            "CCI-001493",
+            "CCI-001494",
+            "CCI-001495"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215051r610931_rule",
+        "Legacy_Vuln": "V-75655",
+        "Legacy_SV": "SV-90335",
+        "CCI Ids": [
+            "CCI-001495",
+            "CCI-001493",
+            "CCI-001494"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215052r610931_rule",
+        "Legacy_Vuln": "V-75657",
+        "Legacy_SV": "SV-90337",
+        "CCI Ids": [
+            "CCI-001493",
+            "CCI-001494",
+            "CCI-001495"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215055r610931_rule",
+        "Legacy_Vuln": "V-75661",
+        "Legacy_SV": "SV-90341",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002132",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215056r610931_rule",
+        "Legacy_Vuln": "V-75663",
+        "Legacy_SV": "SV-90343",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884",
+            "CCI-002132"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215057r610931_rule",
+        "Legacy_Vuln": "V-75665",
+        "Legacy_SV": "SV-90345",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002132",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215058r610931_rule",
+        "Legacy_Vuln": "V-75667",
+        "Legacy_SV": "SV-90347",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884",
+            "CCI-002132"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215059r610931_rule",
+        "Legacy_Vuln": "V-75687",
+        "Legacy_SV": "SV-90367",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002132",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215060r610931_rule",
+        "Legacy_Vuln": "V-90365",
+        "Legacy_SV": "SV-101015",
+        "CCI Ids": [
+            "CCI-002233",
+            "CCI-002234"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215063r610931_rule",
+        "Legacy_Vuln": "V-75695",
+        "Legacy_SV": "SV-90375",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215068r610931_rule",
+        "Legacy_Vuln": "V-75717",
+        "Legacy_SV": "SV-90397",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215069r610931_rule",
+        "Legacy_Vuln": "V-75719",
+        "Legacy_SV": "SV-90399",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215070r610931_rule",
+        "Legacy_Vuln": "V-75721",
+        "Legacy_SV": "SV-90401",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215071r610931_rule",
+        "Legacy_Vuln": "V-75723",
+        "Legacy_SV": "SV-90403",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215072r610931_rule",
+        "Legacy_Vuln": "V-75725",
+        "Legacy_SV": "SV-90405",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215073r610931_rule",
+        "Legacy_Vuln": "V-75727",
+        "Legacy_SV": "SV-90407",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215074r610931_rule",
+        "Legacy_Vuln": "V-75729",
+        "Legacy_SV": "SV-90409",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215075r610931_rule",
+        "Legacy_Vuln": "V-75731",
+        "Legacy_SV": "SV-90411",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215076r610931_rule",
+        "Legacy_Vuln": "V-75733",
+        "Legacy_SV": "SV-90413",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215077r610931_rule",
+        "Legacy_Vuln": "V-75735",
+        "Legacy_SV": "SV-90415",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215078r610931_rule",
+        "Legacy_Vuln": "V-75737",
+        "Legacy_SV": "SV-90417",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215079r610931_rule",
+        "Legacy_Vuln": "V-75739",
+        "Legacy_SV": "SV-90419",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215080r610931_rule",
+        "Legacy_Vuln": "V-75741",
+        "Legacy_SV": "SV-90421",
+        "CCI Ids": [
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884",
+            "CCI-000172"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215081r610931_rule",
+        "Legacy_Vuln": "V-75743",
+        "Legacy_SV": "SV-90423",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215082r610931_rule",
+        "Legacy_Vuln": "V-75745",
+        "Legacy_SV": "SV-90425",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215083r610931_rule",
+        "Legacy_Vuln": "V-75747",
+        "Legacy_SV": "SV-90427",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215084r610931_rule",
+        "Legacy_Vuln": "V-75749",
+        "Legacy_SV": "SV-90429",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215085r610931_rule",
+        "Legacy_Vuln": "V-75751",
+        "Legacy_SV": "SV-90431",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215086r610931_rule",
+        "Legacy_Vuln": "V-75753",
+        "Legacy_SV": "SV-90433",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215087r610931_rule",
+        "Legacy_Vuln": "V-75755",
+        "Legacy_SV": "SV-90435",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215089r610931_rule",
+        "Legacy_Vuln": "V-75759",
+        "Legacy_SV": "SV-90439",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215090r610931_rule",
+        "Legacy_Vuln": "V-75761",
+        "Legacy_SV": "SV-90441",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215091r610931_rule",
+        "Legacy_Vuln": "V-80969",
+        "Legacy_SV": "SV-95681",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215092r610931_rule",
+        "Legacy_Vuln": "V-75765",
+        "Legacy_SV": "SV-90445",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215095r610931_rule",
+        "Legacy_Vuln": "V-75771",
+        "Legacy_SV": "SV-90451",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215096r610931_rule",
+        "Legacy_Vuln": "V-75773",
+        "Legacy_SV": "SV-90453",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215097r610931_rule",
+        "Legacy_Vuln": "V-75775",
+        "Legacy_SV": "SV-90455",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215098r610931_rule",
+        "Legacy_Vuln": "V-75777",
+        "Legacy_SV": "SV-90457",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215100r610931_rule",
+        "Legacy_Vuln": "V-75781",
+        "Legacy_SV": "SV-90461",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215101r610931_rule",
+        "Legacy_Vuln": "V-75783",
+        "Legacy_SV": "SV-90463",
+        "CCI Ids": [
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215103r610931_rule",
+        "Legacy_Vuln": "V-75787",
+        "Legacy_SV": "SV-90467",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215104r610931_rule",
+        "Legacy_Vuln": "V-75789",
+        "Legacy_SV": "SV-90469",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215105r610931_rule",
+        "Legacy_Vuln": "V-75791",
+        "Legacy_SV": "SV-90471",
+        "CCI Ids": [
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215106r610931_rule",
+        "Legacy_Vuln": "V-75793",
+        "Legacy_SV": "SV-90473",
+        "CCI Ids": [
+            "CCI-000130",
+            "CCI-000135",
+            "CCI-000169",
+            "CCI-000172",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215107r610931_rule",
+        "Legacy_Vuln": "V-75795",
+        "Legacy_SV": "SV-90475",
+        "CCI Ids": [
+            "CCI-000172",
+            "CCI-000169",
+            "CCI-000135",
+            "CCI-000130",
+            "CCI-002884"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215120r610931_rule",
+        "Legacy_Vuln": "V-75821",
+        "Legacy_SV": "SV-90501",
+        "CCI Ids": [
+            "CCI-002824"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215121r610931_rule",
+        "Legacy_Vuln": "V-75823",
+        "Legacy_SV": "SV-90503",
+        "CCI Ids": [
+            "CCI-001941",
+            "CCI-001942"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215123r610931_rule",
+        "Legacy_Vuln": "V-75827",
+        "Legacy_SV": "SV-90507",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215124r610931_rule",
+        "Legacy_Vuln": "V-75829",
+        "Legacy_SV": "SV-90509",
+        "CCI Ids": [
+            "CCI-000068"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215125r610931_rule",
+        "Legacy_Vuln": "V-75831",
+        "Legacy_SV": "SV-90511",
+        "CCI Ids": [
+            "CCI-001453",
+            "CCI-002890",
+            "CCI-003123"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215128r610931_rule",
+        "Legacy_Vuln": "V-75835",
+        "Legacy_SV": "SV-90515",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215129r610931_rule",
+        "Legacy_Vuln": "V-75837",
+        "Legacy_SV": "SV-90517",
+        "CCI Ids": [
+            "CCI-002361",
+            "CCI-000879",
+            "CCI-001133"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215131r610931_rule",
+        "Legacy_Vuln": "V-75841",
+        "Legacy_SV": "SV-90521",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215134r610931_rule",
+        "Legacy_Vuln": "V-75847",
+        "Legacy_SV": "SV-90527",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215135r610931_rule",
+        "Legacy_Vuln": "V-75849",
+        "Legacy_SV": "SV-90529",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215136r610931_rule",
+        "Legacy_Vuln": "V-75851",
+        "Legacy_SV": "SV-90531",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215137r610931_rule",
+        "Legacy_Vuln": "V-75853",
+        "Legacy_SV": "SV-90533",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215139r610931_rule",
+        "Legacy_Vuln": "V-75857",
+        "Legacy_SV": "SV-90537",
+        "CCI Ids": [
+            "CCI-002418",
+            "CCI-002420",
+            "CCI-002421",
+            "CCI-002422"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215140r610931_rule",
+        "Legacy_Vuln": "V-75859",
+        "Legacy_SV": "SV-90539",
+        "CCI Ids": [
+            "CCI-001851"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215146r610931_rule",
+        "Legacy_Vuln": "V-75873",
+        "Legacy_SV": "SV-90553",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215147r610931_rule",
+        "Legacy_Vuln": "V-75875",
+        "Legacy_SV": "SV-90555",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215148r610931_rule",
+        "Legacy_Vuln": "V-75877",
+        "Legacy_SV": "SV-90557",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215149r610931_rule",
+        "Legacy_Vuln": "V-75879",
+        "Legacy_SV": "SV-90559",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215150r610931_rule",
+        "Legacy_Vuln": "V-75881",
+        "Legacy_SV": "SV-90561",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215151r610931_rule",
+        "Legacy_Vuln": "V-75883",
+        "Legacy_SV": "SV-90563",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215152r610931_rule",
+        "Legacy_Vuln": "V-75885",
+        "Legacy_SV": "SV-90565",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215153r610931_rule",
+        "Legacy_Vuln": "V-75887",
+        "Legacy_SV": "SV-90567",
+        "CCI Ids": [
+            "CCI-000366"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215161r610931_rule",
+        "Legacy_Vuln": "V-75903",
+        "Legacy_SV": "SV-90583",
+        "CCI Ids": [
+            "CCI-001948",
+            "CCI-001954",
+            "CCI-001953"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215162r610931_rule",
+        "Legacy_Vuln": "V-75905",
+        "Legacy_SV": "SV-90585",
+        "CCI Ids": [
+            "CCI-001953"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215163r610931_rule",
+        "Legacy_Vuln": "V-75907",
+        "Legacy_SV": "SV-90587",
+        "CCI Ids": [
+            "CCI-001953",
+            "CCI-001954",
+            "CCI-001948"
+        ]
+    },
+    {
+        "Rule": "xccdf_mil.disa.stig_rule_SV-215164r610931_rule",
+        "Legacy_Vuln": "V-75909",
+        "Legacy_SV": "SV-90589",
+        "CCI Ids": [
+            "CCI-000185",
+            "CCI-001991"
+        ]
+    }
+]
