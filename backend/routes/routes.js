@@ -13,12 +13,14 @@ router.post('/post', async (req, res) => {
         const dataToSave = await data.save();
         res.status(200).json([
             {
+                "id" : 1,
                 "asset": "desktop",
                 "deviceType": "PC",
                 "priority": 1,
                 "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
             },
-            {
+            {   
+                "id" : 2,
                 "asset": "desktop2",
                 "deviceType": "NETWORK",
                 "priority": 2,
