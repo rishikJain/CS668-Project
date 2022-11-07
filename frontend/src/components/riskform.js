@@ -1,13 +1,12 @@
-import { useForm } from "react-hook-form";
+
 import { ThemeProvider, createMuiTheme, TextField, Select, MenuItem } from "@material-ui/core";
-import React, { useState, useRef, CSSProperties, useEffect } from "react";
-import { MultipleSelect, SingleSelect } from "react-select-material-ui";
-import singleSelect from "./singleSelect";
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { SingleSelect } from "react-select-material-ui";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Audio, Circles } from 'react-loader-spinner';
 import { ClipLoader } from 'react-spinners';
 import { blue, green } from "@material-ui/core/colors";
+import Context from "./context";
 /**
 * @author
 * @function risk
@@ -33,8 +32,6 @@ let override = {
 // }
 let arrOfJsonObj = [];
 let data = [];
-//let errorForAsset = false;
-//let errorForPriority = false;
 let notCheckingTheHandle = false;
 let sendDashBoardData = {}
 
@@ -57,7 +54,10 @@ const optionsForDev = [
   }
 ];
 
+// export const useContext = React.createContext()
+
 const Risk = (props) => {
+  const {setValue} = useContext(Context);
   const navigate = useNavigate();
   const refForDeviceType = useRef(null);
   const refForAsset = useRef('');
@@ -78,6 +78,7 @@ const Risk = (props) => {
       setDeviceType('')
       setPriority('')
       arrOfJsonObj = []
+      // <Context.Provider></
     }
   }, [])
 
@@ -104,9 +105,9 @@ const Risk = (props) => {
           "Content-Type": "application/json",
         },
       }).then(response => {
+        setValue(response.data)
         startLoader()
         navigate("/Vulnerablities")
-        arrOfJsonObj = []
       })
         .catch(error => { });
     } else {
@@ -147,10 +148,8 @@ const Risk = (props) => {
   const commonForErrorPut = () => {
     if (asset === '') {
       seterrorForAsset(true)
-      // refForAsset.current.focus();
     } if (priority === '') {
       seterrorForPriority(true)
-      // refForPriority.current.focus();
     } if (deviceType === null) {
       seterrorForDev(true)
     }
@@ -172,7 +171,7 @@ const Risk = (props) => {
                 helperText ={errorForDev?"Required":""}
                 onChange={value => {
                   setDeviceType(value);
-                  // seterrorForDev(!(Boolean(value)))
+                  seterrorForDev(!(Boolean(value)))
                 }}
                 SelectProps={{
                   isClearable: true,

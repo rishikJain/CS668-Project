@@ -1,19 +1,27 @@
 import './App.css';
-import React from 'react';
+import React, { useState } from 'react';
 import Risk from './components/riskform';
 import './styles.css';
 import Vulnerability from './components/Vulnerablities';
+import RiskScore from './components/riskscore';
 import {Routes, Route, useNavigate} from 'react-router-dom';
+import Context from './components/context';
 
 function App() {
 
+  const [value,setValue] = useState(null)
+
   return (
-    <div className="App">
+    <Context.Provider value={{value,setValue}}>
+       <div className="App">
       <Routes>
           <Route path="/" element={<Risk />} />
           <Route exact path="/Vulnerablities" element={<Vulnerability />} />
+          <Route exact path="/riskscore" element={<RiskScore />} />
       </Routes>
     </div>
+    </Context.Provider>
+
   );
 }
 
