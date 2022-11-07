@@ -25,6 +25,55 @@ router.post('/post', async (req, res) => {
                 "deviceType": "NETWORK",
                 "priority": 2,
                 "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
+            },
+            {
+                "id" : 3,
+                "asset": "desktop",
+                "deviceType": "PC",
+                "priority": 1,
+                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
+            },
+            {   
+                "id" : 4,
+                "asset": "desktop2",
+                "deviceType": "NETWORK",
+                "priority": 2,
+                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
+            },
+            {
+                "id" : 5,
+                "asset": "desktop",
+                "deviceType": "PC",
+                "priority": 1,
+                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
+            },
+            {   
+                "id" : 6,
+                "asset": "desktop2",
+                "deviceType": "NETWORK",
+                "priority": 2,
+                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
+            },
+            {   
+                "id" : 7,
+                "asset": "desktop2",
+                "deviceType": "NETWORK",
+                "priority": 2,
+                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
+            },
+            {
+                "id" : 8,
+                "asset": "desktop",
+                "deviceType": "PC",
+                "priority": 1,
+                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
+            },
+            {   
+                "id" : 9,
+                "asset": "desktop2",
+                "deviceType": "NETWORK",
+                "priority": 2,
+                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
             }
         ])
     }
