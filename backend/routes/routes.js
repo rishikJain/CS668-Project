@@ -17,7 +17,7 @@ router.post('/post', async (req, res) => {
                 "asset": "desktop",
                 "deviceType": "PC",
                 "priority": 1,
-                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
+                "vulnerability":["CVE-2016-6627","CVE-2022-29581"],
             },
             {   
                 "id" : 2,
@@ -170,46 +170,47 @@ router.get('/getAll', async (req, res) => {
     }
 })
 
-//Get assets by ID 
-router.get('/getOne/:id', async (req, res) => {
+//Get riskscore
+router.post('/calculateRiskScore', async (req, res) => {
     try {
-        const data = await Model.findById(req.params.id);
-        res.json(data)
+        assetId = req.body.assetId;
+        if (assetId){
+        // add logic to calculate risk score based on assetIds then send risk score.
+        // calculate with help of formula for selected assetids
+        } 
+        res.json({ 
+            "score" : 4,
+            "mitigations" : [
+                "Disable or Remove Feature or Program",
+                "User Training",
+                "Privileged Account Management",
+                "Code Signing",
+                "Password Policies",
+                "Multi-factor Authentication",
+                "Restrict File and Directory Permissions"
+            ]
+        })
     }
     catch (error) {
         res.status(500).json({ message: error.message })
     }
 })
 
-//Update assets by ID 
-router.patch('/update/:id', async (req, res) => {
+//Get riskscore
+router.post('/assetMitigations', async (req, res) => {
     try {
-        const id = req.params.id;
-        const updatedData = req.body;
-        const options = { new: true };
-
-        const result = await Model.findByIdAndUpdate(
-            id, updatedData, options
-        )
-
-        res.send(result)
+        assetId = req.body.assetId;
+        if (assetId){
+        // add logic to show mitigations for asset ids based on there cve
+        // recalculate risk score and send in this APIb
+        } 
+        res.json({ score : 4 })
     }
     catch (error) {
         res.status(500).json({ message: error.message })
     }
 })
 
-//Delete assets by ID Method
-router.delete('/delete/:id', async (req, res) => {
-    try {
-        const id = req.params.id;
-        const data = await Model.findByIdAndDelete(id)
-        res.send(`Document with ${data.name} has been deleted..`)
-    }
-    catch (error) {
-        res.status(400).json({ message: error.message })
-    }
-})
 
 //Get all assets
 router.get('/getAllVul', async (req, res) => {
