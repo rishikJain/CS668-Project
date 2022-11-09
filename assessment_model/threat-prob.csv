@@ -1,0 +1,128 @@
+Tactic,Technique,Probability
+collection,Adversary-in-the-Middle,0.17228031659830145
+collection,Audio Capture,5.7773412675486743e-05
+collection,Clipboard Data,5.7773412675486743e-05
+collection,Data from Network Shared Drive,0.00924374602807788
+collection,Screen Capture,5.7773412675486743e-05
+collection,Video Capture,5.7773412675486743e-05
+credential-access,Adversary-in-the-Middle,0.17228031659830145
+credential-access,Brute Force,0.017967531342076376
+credential-access,Credential Stuffing,0.054018140851580104
+credential-access,Credentials In Files,0.00924374602807788
+credential-access,Kerberoasting,0.055346929343116295
+credential-access,Network Sniffing,0.011670229360448321
+credential-access,Password Cracking,0.010572534519614074
+credential-access,Password Guessing,0.017967531342076376
+credential-access,Password Spraying,0.01790975792940089
+credential-access,Steal or Forge Kerberos Tickets,0.058755560690970016
+defense-evasion,Access Token Manipulation,0.15939684557166792
+defense-evasion,Application Access Token,0.15939684557166792
+defense-evasion,Bootkit,0.05933329481772488
+defense-evasion,DLL Search Order Hijacking,0.02553584840256514
+defense-evasion,DLL Side-Loading,0.002426483332370443
+defense-evasion,Default Accounts,0.058813334103645504
+defense-evasion,Disable or Modify Tools,0.05933329481772488
+defense-evasion,Domain Accounts,0.054018140851580104
+defense-evasion,Dylib Hijacking,0.02553584840256514
+defense-evasion,Dynamic Linker Hijacking,0.9523947079553989
+defense-evasion,Impair Command History Logging,0.9523947079553989
+defense-evasion,Indicator Removal on Host,0.00034664047605292045
+defense-evasion,Install Root Certificate,0.05933329481772488
+defense-evasion,Masquerading,0.002426483332370443
+defense-evasion,Match Legitimate Name or Location,0.002426483332370443
+defense-evasion,Modify Registry,5.7773412675486743e-05
+defense-evasion,Obfuscated Files or Information,0.5593044081113872
+defense-evasion,Pass the Hash,0.04800970593332948
+defense-evasion,Pass the Ticket,0.04800970593332948
+defense-evasion,Path Interception by PATH Environment Variable,1.0
+defense-evasion,Path Interception by Search Order Hijacking,0.002426483332370443
+defense-evasion,Path Interception by Unquoted Path,0.04777861228262754
+defense-evasion,Rootkit,0.05933329481772488
+defense-evasion,Services File Permissions Weakness,0.1159512392397019
+defense-evasion,Services Registry Permissions Weakness,0.05933329481772488
+defense-evasion,Valid Accounts,0.054018140851580104
+defense-evasion,Web Session Cookie,0.48905193829799526
+discovery,Account Discovery,0.39233924547923044
+discovery,Domain Account,0.39233924547923044
+discovery,File and Directory Discovery,0.5025131434513836
+discovery,Network Service Discovery,0.39233924547923044
+discovery,Network Share Discovery,0.3923970188919059
+discovery,Network Sniffing,0.011670229360448321
+discovery,Peripheral Device Discovery,0.39233924547923044
+discovery,Permission Groups Discovery,0.39233924547923044
+discovery,Process Discovery,0.39233924547923044
+discovery,Query Registry,0.00531515396614478
+discovery,Remote System Discovery,0.39233924547923044
+discovery,System Information Discovery,0.39233924547923044
+discovery,System Network Configuration Discovery,0.39233924547923044
+discovery,System Owner/User Discovery,0.39233924547923044
+discovery,System Service Discovery,0.39233924547923044
+discovery,System Time Discovery,0.39233924547923044
+execution,Software Deployment Tools,0.0037552718239066384
+exfiltration,Traffic Duplication,0.02409151308567797
+impact,Direct Network Flood,0.03599283609682824
+impact,Endpoint Denial of Service,0.03599283609682824
+impact,OS Exhaustion Flood,0.04939626783754116
+impact,Reflection Amplification,0.02715350395747877
+impact,Service Exhaustion Flood,0.02715350395747877
+initial-access,Default Accounts,0.058813334103645504
+initial-access,Domain Accounts,0.054018140851580104
+initial-access,External Remote Services,0.055346929343116295
+initial-access,Valid Accounts,0.054018140851580104
+lateral-movement,Application Access Token,0.15939684557166792
+lateral-movement,Pass the Hash,0.04800970593332948
+lateral-movement,Pass the Ticket,0.04800970593332948
+lateral-movement,Remote Desktop Protocol,0.055346929343116295
+lateral-movement,Remote Services,0.055346929343116295
+lateral-movement,SMB/Windows Admin Shares,0.055346929343116295
+lateral-movement,SSH,0.055346929343116295
+lateral-movement,Software Deployment Tools,0.0037552718239066384
+lateral-movement,Taint Shared Content,0.05933329481772488
+lateral-movement,VNC,0.055346929343116295
+lateral-movement,Web Session Cookie,0.48905193829799526
+persistence,Accessibility Features,0.05933329481772488
+persistence,Boot or Logon Autostart Execution,0.05933329481772488
+persistence,Boot or Logon Initialization Scripts,0.05933329481772488
+persistence,Bootkit,0.05933329481772488
+persistence,Change Default File Association,0.05933329481772488
+persistence,DLL Search Order Hijacking,0.02553584840256514
+persistence,DLL Side-Loading,0.002426483332370443
+persistence,Default Accounts,0.058813334103645504
+persistence,Domain Accounts,0.054018140851580104
+persistence,Dylib Hijacking,0.02553584840256514
+persistence,Dynamic Linker Hijacking,0.9523947079553989
+persistence,External Remote Services,0.055346929343116295
+persistence,Launch Daemon,0.10260558091166445
+persistence,Path Interception by PATH Environment Variable,1.0
+persistence,Path Interception by Search Order Hijacking,0.002426483332370443
+persistence,Path Interception by Unquoted Path,0.04777861228262754
+persistence,Registry Run Keys / Startup Folder,5.7773412675486743e-05
+persistence,Services File Permissions Weakness,0.1159512392397019
+persistence,Services Registry Permissions Weakness,0.05933329481772488
+persistence,Shortcut Modification,0.05170720434456064
+persistence,Systemd Service,0.10260558091166445
+persistence,Valid Accounts,0.054018140851580104
+persistence,Web Shell,0.15939684557166792
+persistence,Windows Service,0.10260558091166445
+privilege-escalation,Access Token Manipulation,0.15939684557166792
+privilege-escalation,Accessibility Features,0.05933329481772488
+privilege-escalation,Boot or Logon Autostart Execution,0.05933329481772488
+privilege-escalation,Boot or Logon Initialization Scripts,0.05933329481772488
+privilege-escalation,Change Default File Association,0.05933329481772488
+privilege-escalation,DLL Search Order Hijacking,0.02553584840256514
+privilege-escalation,DLL Side-Loading,0.002426483332370443
+privilege-escalation,Default Accounts,0.058813334103645504
+privilege-escalation,Domain Accounts,0.054018140851580104
+privilege-escalation,Dylib Hijacking,0.02553584840256514
+privilege-escalation,Dynamic Linker Hijacking,0.9523947079553989
+privilege-escalation,Launch Daemon,0.10260558091166445
+privilege-escalation,Path Interception by PATH Environment Variable,1.0
+privilege-escalation,Path Interception by Search Order Hijacking,0.002426483332370443
+privilege-escalation,Path Interception by Unquoted Path,0.04777861228262754
+privilege-escalation,Registry Run Keys / Startup Folder,5.7773412675486743e-05
+privilege-escalation,Services File Permissions Weakness,0.1159512392397019
+privilege-escalation,Services Registry Permissions Weakness,0.05933329481772488
+privilege-escalation,Shortcut Modification,0.05170720434456064
+privilege-escalation,Systemd Service,0.10260558091166445
+privilege-escalation,Valid Accounts,0.054018140851580104
+privilege-escalation,Windows Service,0.10260558091166445
