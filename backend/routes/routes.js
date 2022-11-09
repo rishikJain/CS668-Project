@@ -10,6 +10,7 @@ router.post('/post', async (req, res) => {
     })
 
     try {
+        // make call to nist website, fetch CVEs from there, and save it to DB & then send response
         const dataToSave = await data.save();
         res.status(200).json([
             {
@@ -220,12 +221,13 @@ router.post('/calculateRiskScore', async (req, res) => {
 //Get riskscore
 router.post('/assetMitigations', async (req, res) => {
     try {
-        assetId = req.body.assetId;
-        if (assetId){
+        mitigationsNumber = req.body.mitigationsNumber;
+        if (mitigationsNumber){
         // add logic to show mitigations for asset ids based on there cve
         // recalculate risk score and send in this APIb
+        var updatedScore = 10-0.05*mitigationsNumber
         } 
-        res.json({ score : 4 })
+        res.json({ score : updatedScore })
     }
     catch (error) {
         res.status(500).json({ message: error.message })
