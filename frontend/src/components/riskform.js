@@ -59,9 +59,6 @@ const optionsForDev = [
 const Risk = (props) => {
   const {setValue} = useContext(Context);
   const navigate = useNavigate();
-  const refForDeviceType = useRef(null);
-  const refForAsset = useRef('');
-  const refForPriority = useRef('');
   const [asset, setAssetType] = useState('');
   const [deviceType, setDeviceType] = useState(null);
   const [priority, setPriority] = useState('');

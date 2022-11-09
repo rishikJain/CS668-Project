@@ -10,9 +10,10 @@ import Context from './components/context';
 function App() {
 
   const [value,setValue] = useState(null)
+  const [valueForRisk,setValueForRisk] = useState(null)
 
   return (
-    <Context.Provider value={{value,setValue}}>
+    <Context.Provider  value={{ value, setValue, valueForRisk, setValueForRisk }}>
        <div className="App">
       <Routes>
           <Route path="/" element={<Risk />} />
