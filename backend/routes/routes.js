@@ -2,160 +2,68 @@ const express = require('express');
 const Model = require('../models/model');
 const threatVulMapping = require('../models/threadVulMapping')
 const router = express.Router();
+var axios = require('axios');
+
+
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
 
 //Post Method
 router.post('/post', async (req, res) => {
-    const data = new Model({
-        asset: req.body.asset
-    })
+    const data = new Model({ asset: req.body.asset });
+    var cveArr = [];
+    var count = 0;
 
     try {
-        // make call to nist website, fetch CVEs from there, and save it to DB & then send response
+        // make a call to nist api to fetch cve list
+        for (let i = 0; i < data.asset.length; i++) {
+            axios.get(`https://services.nvd.nist.gov/rest/json/cves/2.0?cpeName=${data.asset[i].asset}`)
+                .then(resp => {
+                    for (let j = 0; j < resp.data.vulnerabilities.length; j++) {
+                        cveArr.push({ key: data.asset[i].asset, value: resp.data.vulnerabilities[j].cve.id });
+                    }
+                    count += 1;
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        }
+
+        while (data.asset.length != count) {
+            await sleep(10);
+        }
+
+        // build a dict for assetId : cve
+        dict = {}
+        for (let i = 0; i < cveArr.length; i++) {
+
+            if (dict[cveArr[i]['key']] == undefined)
+                dict[cveArr[i]['key']] = []
+
+            dict[cveArr[i]['key']].push(cveArr[i]['value'])
+        }
+      
+
+        // add vuln and id to asset array coming from req.body
+        for (let i = 0; i < data.asset.length; i++) {
+            data.asset[i]['vuln'] = dict[data.asset[i].asset]
+            data.asset[i]['_id'] = i;
+        }
+
+        console.log(data);
         const dataToSave = await data.save();
+
         res.status(200).json([
-            {
-                "id" : 1,
-                "asset": "desktop",
-                "deviceType": "PC",
-                "priority": 1,
-                "vulnerability":["CVE-2016-6627","CVE-2022-29581"],
-            },
-            {   
-                "id" : 2,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            },
-            {
-                "id" : 3,
-                "asset": "desktop",
-                "deviceType": "PC",
-                "priority": 1,
-                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
-            },
-            {   
-                "id" : 4,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            },
-            {
-                "id" : 5,
-                "asset": "desktop",
-                "deviceType": "PC",
-                "priority": 1,
-                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
-            },
-            {   
-                "id" : 6,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            },
-            {   
-                "id" : 7,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            },
-            {
-                "id" : 8,
-                "asset": "desktop",
-                "deviceType": "PC",
-                "priority": 1,
-                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
-            },
-            {   
-                "id" : 9,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            },
-            {
-                "id" : 10,
-                "asset": "desktop",
-                "deviceType": "PC",
-                "priority": 1,
-                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
-            },
-            {   
-                "id" : 11,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            },
-            {
-                "id" : 12,
-                "asset": "desktop",
-                "deviceType": "PC",
-                "priority": 1,
-                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
-            },
-            {   
-                "id" : 13,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            },
-            {
-                "id" : 14,
-                "asset": "desktop",
-                "deviceType": "PC",
-                "priority": 1,
-                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
-            },
-            {   
-                "id" : 15,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            },
-            {   
-                "id" : 16,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            },
-            {
-                "id" : 17,
-                "asset": "desktop",
-                "deviceType": "PC",
-                "priority": 1,
-                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
-            },
-            {   
-                "id" : 18,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            },
-            {
-                "id" : 19,
-                "asset": "desktop",
-                "deviceType": "PC",
-                "priority": 1,
-                "vulnerability":["CVE-2022-40617","CVE-2022-29581"],
-            },
-            {   
-                "id" : 20,
-                "asset": "desktop2",
-                "deviceType": "NETWORK",
-                "priority": 2,
-                "vulnerability":["CVE-2022-1055","CVE-2022-20698","CVE-2021-44420"],
-            }
+            data
         ])
+
+
     }
     catch (error) {
+        console.log(error.message);
         res.status(400).json({ message: error.message })
     }
 })
@@ -175,13 +83,13 @@ router.get('/getAll', async (req, res) => {
 router.post('/calculateRiskScore', async (req, res) => {
     try {
         assetId = req.body.assetId;
-        if (assetId){
-        // add logic to calculate risk score based on assetIds then send risk score.
-        // calculate with help of formula for selected assetids
-        } 
-        res.json({ 
-            "score" : 4,
-            "mitigations" : [
+        if (assetId) {
+            // add logic to calculate risk score based on assetIds then send risk score.
+            // calculate with help of formula for selected assetids
+        }
+        res.json({
+            "score": 4,
+            "mitigations": [
                 "Disable or Remove Feature or Program",
                 "User Training",
                 "Privileged Account Management",
@@ -222,12 +130,12 @@ router.post('/calculateRiskScore', async (req, res) => {
 router.post('/assetMitigations', async (req, res) => {
     try {
         mitigationsNumber = req.body.mitigationsNumber;
-        if (mitigationsNumber){
-        // add logic to show mitigations for asset ids based on there cve
-        // recalculate risk score and send in this APIb
-        var updatedScore = 10-0.05*mitigationsNumber
-        } 
-        res.json({ score : updatedScore })
+        if (mitigationsNumber) {
+            // add logic to show mitigations for asset ids based on there cve
+            // recalculate risk score and send in this APIb
+            var updatedScore = 10 - 0.05 * mitigationsNumber
+        }
+        res.json({ score: updatedScore })
     }
     catch (error) {
         res.status(500).json({ message: error.message })
