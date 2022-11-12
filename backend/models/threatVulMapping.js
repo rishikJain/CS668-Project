@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 
 const threatVulMapping = new mongoose.Schema({
-    Tactic: {
-        type: String
-    },
     Technique: {
         type: String
     },
@@ -12,4 +9,4 @@ const threatVulMapping = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('threat-vuln-map', threatVulMapping)
+module.exports = mongoose.model('threat-prob', threatVulMapping)

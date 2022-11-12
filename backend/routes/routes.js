@@ -1,6 +1,7 @@
 const express = require('express');
 const Model = require('../models/model');
-const threatVulMapping = require('../models/threadVulMapping')
+const threatVulMapping = require('../models/threatVulMapping');
+const threatProbMapping = require('../models/threatVulMapping');
 const router = express.Router();
 var axios = require('axios');
 
@@ -53,9 +54,7 @@ router.post('/post', async (req, res) => {
             data.asset[i]['_id'] = i;
         }
 
-        console.log(data);
-        const dataToSave = await data.save();
-
+        const dataToSave = await data.save();   
         res.status(200).json([
             data
         ])
@@ -68,24 +67,17 @@ router.post('/post', async (req, res) => {
     }
 })
 
-//Get all assets
-router.get('/getAll', async (req, res) => {
-    try {
-        const data = await Model.find();
-        res.json(data)
-    }
-    catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-})
-
 //Get riskscore
 router.post('/calculateRiskScore', async (req, res) => {
     try {
         assetId = req.body.assetId;
         if (assetId) {
-            // add logic to calculate risk score based on assetIds then send risk score.
-            // calculate with help of formula for selected assetids
+           let data = await Model.findById({ '_id' : assetId })
+           for ( let i=0; i<data.asset.length; i++) {
+             for ( let j=0; j<data.asset[i].vuln[j]; j++){
+
+             }
+           }
         }
         res.json({
             "score": 4,
@@ -143,12 +135,25 @@ router.post('/assetMitigations', async (req, res) => {
 })
 
 
-//Get all assets
+//Get all threat-vuln
 router.get('/getAllVul', async (req, res) => {
     const a = req.query.skip;
     const b = req.query.limit
     try {
         const data = await threatVulMapping.find({}).skip(a).limit(b);
+        res.json(data)
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+//Get all threat-prob
+router.get('/threatProb', async (req, res) => {
+    const a = req.query.skip;
+    const b = req.query.limit
+    try {
+        const data = await threatProbMapping.find({}).skip(a).limit(b);
         res.json(data)
     }
     catch (error) {
