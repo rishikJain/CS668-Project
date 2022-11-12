@@ -2,18 +2,17 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
-const mongoString = process.env.DATABASE_URL;
 
-mongoose.connect(mongoString);
-const database = mongoose.connection;
+const port = process.env.PORT || 4000;
 
-database.on('error', (error) => {
-    console.log(error)
-})
+console.log(process.env.DATABASE_URL);
 
-database.once('connected', () => {
-    console.log('Database Connected');
-})
+mongoose
+  .connect(process.env.DATABASE_URL)
+  .then(() => console.log("MONGODB_CONNECTED"))
+  .catch((err) => console.log(err));
+
+
 const app = express();
 app.use(cors())
 app.use(express.json());
