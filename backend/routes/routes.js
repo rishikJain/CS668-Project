@@ -99,37 +99,7 @@ router.post('/calculateRiskScore', async (req, res) => {
 
         }
         res.json({
-            "score": 4,
-            "mitigations": [
-                "Disable or Remove Feature or Program",
-                "User Training",
-                "Privileged Account Management",
-                "Code Signing",
-                "Password Policies",
-                "Multi-factor Authentication",
-                "Restrict File and Directory Permissions",
-                "Disable or Remove Feature or Program",
-                "User Training",
-                "Privileged Account Management",
-                "Code Signing",
-                "Password Policies",
-                "Multi-factor Authentication",
-                "Restrict File and Directory Permissions",
-                "Disable or Remove Feature or Program",
-                "User Training",
-                "Privileged Account Management",
-                "Code Signing",
-                "Password Policies",
-                "Multi-factor Authentication",
-                "Restrict File and Directory Permissions",
-                "Disable or Remove Feature or Program",
-                "User Training",
-                "Privileged Account Management",
-                "Code Signing",
-                "Password Policies",
-                "Multi-factor Authentication",
-                "Restrict File and Directory Permissions"
-            ]
+           result : updatedResult
         })
     }
     catch (error) {
@@ -146,20 +116,32 @@ router.post('/assetMitigations', async (req, res) => {
 
             for(let i=0; i<data.asset.length; i++) {
                 if (data.asset[i].threats.length > 0) {
-
+                    let mit = []
                     for( let j=0; j<data.asset[i].threats.length; j++) {
                         let mitigations = await mitigtions.find({'Technique' : data.asset[i].threats[j] },{Mitigation:1,_id:0})
-                        data.asset[i]['mitigations'] = mitigations
+                        mit.push(mitigations);
+                        data.asset[i]['mitigations'] = mit
                     }
                 }
             }
            console.log(JSON.stringify(data));
-
-            // add logic to show mitigations for asset ids based on there cve
-            // recalculate risk score and send in this APIb
-            // var updatedScore = 10 - 0.05 * mitigationsNumber
         }
-        res.json({ score: "updatedScore" })
+        res.json({ result : data })
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
+
+router.post('/reduceRiskscore', async (req, res) => {
+    try {
+
+        score = req.body.score;
+        mitigationsNumber = req.body.mitigationsNumber;
+        if (mitigationsNumber) {
+             var updatedScore = score - 0.05 * mitigationsNumber
+        }
+        res.json({ score: updatedScore })
     }
     catch (error) {
         res.status(500).json({ message: error.message })
