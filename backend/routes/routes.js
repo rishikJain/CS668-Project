@@ -1,7 +1,7 @@
 const express = require('express');
 const Model = require('../models/model');
 const threatVulMapping = require('../models/threatVulMapping');
-const threatProbMapping = require('../models/threatVulMapping');
+const threatProbMapping = require('../models/threatProbMapping');
 const router = express.Router();
 var axios = require('axios');
 
@@ -72,12 +72,35 @@ router.post('/calculateRiskScore', async (req, res) => {
     try {
         assetId = req.body.assetId;
         if (assetId) {
-           let data = await Model.findById({ '_id' : assetId })
-           for ( let i=0; i<data.asset.length; i++) {
-             for ( let j=0; j<data.asset[i].vuln[j]; j++){
 
-             }
-           }
+            var data = await Model.findById({ '_id': assetId })
+            
+            for (let i = 0; i < data.asset.length; i++) {
+                for (let j = 0; j < data.asset[i].vuln.length; j++) {
+                    let threats = await threatVulMapping.find({ 'Vuln': data.asset[i].vuln[j] }, { Technique: 1, _id: 0 }).distinct('Technique');
+                    data.asset[i]['threats'] = threats;
+                }
+            }
+            
+           // console.log(data)
+
+            
+                for (let i = 0; i < data.asset.length; i++) {
+                    var sum = 0;
+                    if (data.asset[i].threats.length > 0) {
+                        for (let k = 0; k < data.asset[i].threats.length; k++) {
+
+                            let cveProb = await threatProbMapping.find({ 'Technique': data.asset[i].threats[k] }, { _id: 0 });
+                            sum += parseFloat(cveProb[0].Probability);
+                            data.asset[i]['prob'] = sum;
+    
+                        }
+                    } else {
+                        data.asset[i]['prob'] = 0;
+                    }
+            }
+            console.log(data)
+
         }
         res.json({
             "score": 4,
