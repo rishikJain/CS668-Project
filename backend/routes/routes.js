@@ -73,12 +73,13 @@ router.post('/calculateRiskScore', async (req, res) => {
         if (assetId) {
 
             var data = await Model.findById({ '_id': assetId })
-            // console.log(data);
+            //console.log("data: " + data);
             for (let i = 0; i < data.asset.length; i++) {
                 var tempdata=[]
                 for (let j = 0; j < data.asset[i].vuln.length; j++) {
                     //console.log(data.asset[i])
                     let threats = await threatVulMapping.find({ 'Vuln': data.asset[i].vuln[j] }, { Technique: 1, _id: 0 });
+                    //console.log('===',threats);
                     if(threats.length != 0)
                         tempdata.push(threats)
                 }
@@ -123,7 +124,7 @@ router.post('/calculateRiskScore', async (req, res) => {
            var updatedResult = await Model.findByIdAndUpdate({'_id' : assetId}, data)
         }
         res.json({
-           result : updatedResult
+           result : data
         })
     }
     catch (error) {
