@@ -3,6 +3,7 @@ import { ThemeProvider, createMuiTheme, TextField, Select, MenuItem } from "@mat
 import React, { useState, useRef, useEffect, useContext } from "react";
 import { SingleSelect } from "react-select-material-ui";
 import { useNavigate } from 'react-router-dom';
+import { Dialog, DialogActions, DialogContent, DialogTitle, DialogContentText } from '@material-ui/core'
 import axios from 'axios';
 import { ClipLoader } from 'react-spinners';
 import { blue, green } from "@material-ui/core/colors";
@@ -57,7 +58,7 @@ const optionsForDev = [
 // export const useContext = React.createContext()
 
 const Risk = (props) => {
-  const {setValue} = useContext(Context);
+  const { setValue } = useContext(Context);
   const navigate = useNavigate();
   const [asset, setAssetType] = useState('');
   const [deviceType, setDeviceType] = useState(null);
@@ -65,6 +66,9 @@ const Risk = (props) => {
   let [loading, setLoading] = useState(false);
   let [color, setColor] = useState(green);
   const [count, setCount] = useState(0);
+  const [open, setOpen] = useState(false)
+  const [openForSub,setopenForSub] = useState(false)
+  const [submit,setSubmit] = useState(true)
   const [errorForAsset, seterrorForAsset] = useState(false)
   const [errorForPriority, seterrorForPriority] = useState(false)
   const [errorForDev, seterrorForDev] = useState(false)
@@ -74,6 +78,9 @@ const Risk = (props) => {
       setAssetType('')
       setDeviceType('')
       setPriority('')
+      setOpen(false)
+      setSubmit(true)
+      setopenForSub(false)
       arrOfJsonObj = []
       // <Context.Provider></
     }
@@ -90,12 +97,22 @@ const Risk = (props) => {
     commonErrors()
     if (!(asset === '' || deviceType === null || priority === '') || arrOfJsonObj.length != 0) {
       if (!notCheckingTheHandle && asset && deviceType && priority) {
-        let arr = commonForAddandSubmit()
-        sendDashBoardData = { asset: arr }
+        setopenForSub(true)
       } else {
+        setOpen(true)
+        setSubmit(false)
         sendDashBoardData = { asset: arrOfJsonObj }
       }
-      startLoader()
+    } else {
+      setSubmit(true)
+      setopenForSub(true)
+    }
+    event.preventDefault()
+  }
+
+  const sendData = () => {
+    setOpen(false)
+    startLoader()
       let myurl = "http://localhost:4000/api/post"
       axios.post(myurl, sendDashBoardData, {
         headers: {
@@ -107,11 +124,6 @@ const Risk = (props) => {
         navigate("/Vulnerablities")
       })
         .catch(error => { });
-    } else {
-      commonForErrorPut()
-    }
-    notCheckingTheHandle = false
-    event.preventDefault()
   }
 
   const startLoader = () => {
@@ -122,24 +134,34 @@ const Risk = (props) => {
     seterrorForDev(false)
     seterrorForAsset(false)
     seterrorForPriority(false)
-    notCheckingTheHandle = false
   }
 
   const handleAddIterm = (event) => {
-    console.log(asset, deviceType, priority)
     commonErrors()
     if (!(asset === '' || deviceType === null || priority === '')) {
       notCheckingTheHandle = true;
       commonForAddandSubmit()
       setCount(count => count + 1)
-      setAssetType('')
-      setPriority('')
-      setDeviceType(null)
+      setSubmit(true)
+      setOpen(true)
     } else {
       commonForErrorPut()
     }
     event.preventDefault();
 
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+    if (submit === true) {
+      setAssetType('')
+      setPriority('')
+      setDeviceType(null)
+    }
+  }
+
+  const handleCloseForSub = () => {
+    setopenForSub(false)
   }
 
   const commonForErrorPut = () => {
@@ -163,9 +185,9 @@ const Risk = (props) => {
               <SingleSelect className="selectclass for-red--line"
                 value={deviceType}
                 options={optionsForDev}
-                error = {errorForDev}
+                error={errorForDev}
                 label="DeviceType"
-                helperText ={errorForDev?"Required":""}
+                helperText={errorForDev ? "Required" : ""}
                 onChange={value => {
                   setDeviceType(value);
                   seterrorForDev(!(Boolean(value)))
@@ -176,7 +198,6 @@ const Risk = (props) => {
                 }}
               />
             </div>
-            {/* <singleSelect /> */}
             <div className="margin-set">
               <TextField className="selectclass"
                 value={asset}
@@ -219,22 +240,63 @@ const Risk = (props) => {
             </div>
           </div>
         </form>
-        <div style={{position:"absolute",
-        backgroundColor:"white",
-        height:"100vh",
-        width:"100vw",
-        top:"0px",
-        left:"0px",
-        display: loading ? "block" : "none"}}>
-        <ClipLoader
-          color={color}
-          loading={loading}
-          cssOverride={override}
-          size={50}
-          aria-label="Loading Spinner"
-          data-testid="loader"
-        />
+        <div style={{
+          position: "absolute",
+          backgroundColor: "white",
+          height: "100vh",
+          width: "100vw",
+          top: "0px",
+          left: "0px",
+          display: loading ? "block" : "none"
+        }}>
+          <ClipLoader
+            color={color}
+            loading={loading}
+            cssOverride={override}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
         </div>
+        <Dialog open={open}
+          fullWidth={true}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description">
+          <DialogTitle id="alert-dialog-title">
+            {"Information"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              { submit? "Added Items are" + count : "You added " + count + " item(s).Do you want to send it?"}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+             {submit === false ? 
+              <div>
+                <button className="button" onClick={sendData}>Yes</button> 
+                                 <button className="button" onClick={handleClose}>No</button>
+                </div>
+                                :<button className="button" onClick={handleClose}>Close</button>} 
+          </DialogActions>
+        </Dialog>
+        <Dialog open={openForSub}
+          fullWidth={true}
+          onClose={handleCloseForSub}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description">
+          <DialogTitle id="alert-dialog-title">
+            {"Warning"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Please add atleast one item(s) before submit the form.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <button className="button" onClick={handleCloseForSub}>Close</button>
+          </DialogActions>
+        </Dialog>
       </div>
     </ThemeProvider>
   )
