@@ -113,13 +113,14 @@ const Risk = (props) => {
   const sendData = () => {
     setOpen(false)
     startLoader()
-      let myurl = "http://localhost:4000/api/post"
+      let myurl = "http://18.191.203.136:4000/api/post"
       axios.post(myurl, sendDashBoardData, {
         headers: {
           "Content-Type": "application/json",
         },
       }).then(response => {
-        setValue(response.data)
+        console.log(response)
+        setValue(response.data[0])
         startLoader()
         navigate("/Vulnerablities")
       })

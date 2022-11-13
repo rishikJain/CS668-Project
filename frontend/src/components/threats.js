@@ -1,4 +1,4 @@
-import React, { useContext, useEffect,useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Context from './context'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core'
 import { useNavigate } from 'react-router-dom';
@@ -8,44 +8,40 @@ import { green } from "@material-ui/core/colors";
 
 /**
 * @author
-* @function 
+* @function Threat
 **/
 
-const Vulnerability = (props) => {
-    const {setValueForThreat} = useContext(Context);
+
+const Threat = (props) => {
+    const { setValueForRisk } = useContext(Context);
     const navigate = useNavigate();
     let [loading, setLoading] = useState(false);
     let [color, setColor] = useState(green);
-    const { value } = useContext(Context)
-    console.log(value)
+    const { valueForThreat } = useContext(Context)
     useEffect(() => {
-        if (value === null) {
+        if (valueForThreat === null) {
             navigate("/")
         }
-    }, [value])
-
+    }, [valueForThreat])
 
     const startLoader = () => {
         setLoading(loading => !loading)
-      }
-
-    const handleThreat = () => {
-        let myurl = "http://18.191.203.136:4000/api/calculateRiskScore"
-        let object = { assetId: value?._id }
-        console.log(object)
-        startLoader();
-        axios.post(myurl,object, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }).then(response => {
-            console.log(response)
-            setValueForThreat(response.data.result)
-            startLoader()
-            navigate("/threats")
-          })
     }
 
+    const handleRisk = () => {
+        let myurl = "http://18.191.203.136:4000/api/calculateRiskScore"
+        let object = { assetId: valueForThreat?._id }
+        startLoader();
+        axios.post(myurl, object ,{
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then(response => {
+            setValueForRisk(response.data)
+            startLoader()
+            navigate("/riskscore")
+        })
+    }
 
     return (
         <div className='main'>
@@ -67,17 +63,17 @@ const Vulnerability = (props) => {
                             <TableRow>
                                 <TableCell
                                     style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}
-                                    sortDirection='asc'>Asset</TableCell>
+                                    sortDirection='asc'>Assets</TableCell>
                                 <TableCell
-                                    style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>DeviceType</TableCell>
+                                    style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>Risk Score
+                                </TableCell>
                                 <TableCell
-                                    style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>Impact</TableCell>
-                                <TableCell
-                                    style={{ fontWeight: 'bold', backgroundColor: 'lavender' }} >Vulnerabilities</TableCell>
+                                    style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>Threats 
+                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {value?.asset?.map((row, i) => (
+                            {valueForThreat?.asset?.map((row, i) => (
                                 <TableRow
                                     key={i}
                                     hover
@@ -86,19 +82,18 @@ const Vulnerability = (props) => {
                                     <TableCell component="th" scope="col" sortDirection='asc'>
                                         {row.asset}
                                     </TableCell>
-                                    <TableCell >{row.deviceType}</TableCell>
-                                    <TableCell >{row.priority}</TableCell>
-                                    <TableCell >{row.vuln.map((ro, i) => {
+                                    <TableCell >{row?.riskScore ? row?.riskScore : 0}</TableCell>
+                                    <TableCell >{row?.threats ? row?.threats?.map((ro, i) => {
                                         return (<React.Fragment key={i} >
                                             {Boolean(i) && <span>,</span>}
                                             <span>{ro}</span> </React.Fragment>)
-                                    })}</TableCell>
+                                    }) : "No Threats available for this asset"}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
-                <button className="button" onClick={handleThreat}>Calculate Risk Score</button>
+                <button className="button" onClick={handleRisk}>Go to Mitigations</button>
                 <div style={{
                     position: "absolute",
                     top: "50%",
@@ -116,6 +111,7 @@ const Vulnerability = (props) => {
             </div>
         </div>
     )
+
 }
 
-export default Vulnerability;
+export default Threat

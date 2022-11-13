@@ -43,7 +43,7 @@ const RiskScore = (props) => {
         if (riskCount?.length != 0) {
             let object = { mitigationsNumber: riskCount?.length }
             console.log(object)
-            let myurl = "http://localhost:4000/api/assetMitigations"
+            let myurl = "http://18.191.203.136:4000/api/assetMitigations"
             startLoader();
             axios.post(myurl, object, {
                 headers: {
@@ -167,10 +167,8 @@ const RiskScore = (props) => {
                 </div>
                 <div style={{
                     position: "absolute",
-                    height: "100vh",
-                    width: "100vw",
-                    top: "0px",
-                    left: "0px",
+                    top: "50%",
+                    left: "50%",
                     display: loading ? "block" : "none"
                 }}>
                     <ClipLoader
@@ -183,25 +181,6 @@ const RiskScore = (props) => {
                     />
                 </div>
             </div>
-            {/* <Collapse in={open}>
-                <Alert
-                    severity="error"
-                    action={
-                        <IconButton
-                            aria-label="close"
-                            color="error"
-                            size="small"
-                            onClick={() => {
-                                setOpen(false);
-                            }}
-                        >
-                            <CloseIcon fontSize="inherit" />
-                        </IconButton>
-                    }
-                >
-                   Please Select atleast one mitigation(s) to reduce the risk score
-                </Alert>
-            </Collapse> */}
             <Dialog open={open}
                 onClose={() => setOpen(false)}
                 aria-labelledby="alert-dialog-title"
