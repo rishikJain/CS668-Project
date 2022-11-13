@@ -73,27 +73,55 @@ router.post('/calculateRiskScore', async (req, res) => {
         if (assetId) {
 
             var data = await Model.findById({ '_id': assetId })
-
+            // console.log(data);
             for (let i = 0; i < data.asset.length; i++) {
+                var tempdata=[]
                 for (let j = 0; j < data.asset[i].vuln.length; j++) {
-                    let threats = await threatVulMapping.find({ 'Vuln': data.asset[i].vuln[j] }, { Technique: 1, _id: 0 }).distinct('Technique');
-                    data.asset[i]['threats'] = threats;
+                    //console.log(data.asset[i])
+                    let threats = await threatVulMapping.find({ 'Vuln': data.asset[i].vuln[j] }, { Technique: 1, _id: 0 });
+                    if(threats.length != 0)
+                        tempdata.push(threats)
                 }
+                data.asset[i]['threats'] = tempdata;
+            }
+        
+       
+            for (let i = 0; i < data.asset.length; i++) {
+                let threatdicts = {}
+                if(data.asset[i].threats.length > 0){
+                    for (let j = 0; j < data.asset[i].threats[0].length; j++) {
+                        var threatvar = data.asset[i].threats[0][j]['Technique']
+                        if(threatdicts[threatvar] == undefined){
+                            threatdicts[threatvar] = 0
+                        }
+                        threatdicts[threatvar] += 1
+                    }
+                }
+                data.asset[i]['threats'] = [threatdicts];
             }
 
+        
             for (let i = 0; i < data.asset.length; i++) {
-                var sum = 0;
+              
                 if (data.asset[i].threats.length > 0) {
+                    let sum=0;
                     for (let k = 0; k < data.asset[i].threats.length; k++) {
+                        for ( const key in data.asset[i].threats[k] ) {
+                            let cveProb = await threatProbMapping.find({ 'Technique':key }, { _id: 0, Technique: 0 });
+                            //console.log('+++++++++',data.asset[i].priority)
+                            data.asset[i].threats[k][key] = parseFloat(cveProb[0].Probability)*(data.asset[i].threats[k][key]*data.asset[i].priority);
+                            sum += data.asset[i].threats[k][key];
+                        }
+                    } 
+                    data.asset[i]['riskScore'] = sum/data.asset[i].priority;
 
-                        let cveProb = await threatProbMapping.find({ 'Technique': data.asset[i].threats[k] }, { _id: 0 });
-                        sum += parseFloat(cveProb[0].Probability);
-                        data.asset[i]['prob'] = sum;
-                    }
                 } else {
                     data.asset[i]['prob'] = 0;
+                    data.asset[i]['riskScore'] = 0;
                 }
             }
+
+           console.log('___________',JSON.stringify(data));
 
            var updatedResult = await Model.findByIdAndUpdate({'_id' : assetId}, data)
 
