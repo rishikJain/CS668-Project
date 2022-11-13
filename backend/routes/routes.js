@@ -108,7 +108,6 @@ router.post('/calculateRiskScore', async (req, res) => {
                     for (let k = 0; k < data.asset[i].threats.length; k++) {
                         for ( const key in data.asset[i].threats[k] ) {
                             let cveProb = await threatProbMapping.find({ 'Technique':key }, { _id: 0, Technique: 0 });
-                            //console.log('+++++++++',data.asset[i].priority)
                             data.asset[i].threats[k][key] = parseFloat(cveProb[0].Probability)*(data.asset[i].threats[k][key]*data.asset[i].priority);
                             sum += data.asset[i].threats[k][key];
                         }
@@ -120,11 +119,8 @@ router.post('/calculateRiskScore', async (req, res) => {
                     data.asset[i]['riskScore'] = 0;
                 }
             }
-
            console.log('___________',JSON.stringify(data));
-
            var updatedResult = await Model.findByIdAndUpdate({'_id' : assetId}, data)
-
         }
         res.json({
            result : updatedResult
@@ -141,18 +137,22 @@ router.post('/assetMitigations', async (req, res) => {
         assetId = req.body.assetId;
         if (assetId) {
             var data = await Model.findById({ '_id': assetId })
+            // console.log(JSON.stringify(data));
 
             for(let i=0; i<data.asset.length; i++) {
+                var mitArr = [];
                 if (data.asset[i].threats.length > 0) {
-                    let mit = []
                     for( let j=0; j<data.asset[i].threats.length; j++) {
-                        let mitigations = await mitigtions.find({'Technique' : data.asset[i].threats[j] },{Mitigation:1,_id:0})
-                        mit.push(mitigations);
-                        data.asset[i]['mitigations'] = mit
+                        //console.log(data.asset[i].threats[0])
+                        for ( const key in data.asset[i].threats[0] ) {
+                            let mitigations = await mitigtions.find({'Technique': key},{Mitigation:1,_id:0}).distinct('Mitigation');
+                            mitArr.push(mitigations);
+                            data.asset[i]['mitigations'] = mitArr;
+                        }
                     }
                 }
             }
-           console.log(JSON.stringify(data));
+            console.log('____',JSON.stringify(data));
         }
         res.json({ result : data })
     }
