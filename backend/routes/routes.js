@@ -181,6 +181,8 @@ router.post('/assetMitigations', async (req, res) => {
                     }
                 }
             }
+            console.log('==mitigations',JSON.stringify(data));
+            var updatedResult = await Model.findByIdAndUpdate({ '_id': assetId }, data)
 
             var sysThreatsArr = [];
             var score = '';
@@ -241,12 +243,21 @@ router.post('/assetMitigations', async (req, res) => {
 router.post('/reduceRiskscore', async (req, res) => {
     try {
 
-        score = req.body.score;
-        mitigationsNumber = req.body.mitigationsNumber;
-        if (mitigationsNumber) {
-            var updatedScore = score - 0.05 * mitigationsNumber
-        }
-        res.json({ score: updatedScore })
+        
+        let assetId = req.body.assetId;
+        let mitigations = req.body.mitigations;
+
+        var data = await Model.findById({ '_id': assetId })
+        console.log(data)
+
+        // for (let i=0; i < mitigations.length; i++){
+
+        // }
+        // console.log('--threats', mitigations);
+
+
+       
+        res.json({ score: 2 })
     }
     catch (error) {
         res.status(500).json({ message: error.message })
