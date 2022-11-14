@@ -181,7 +181,8 @@ router.post('/assetMitigations', async (req, res) => {
                             for ( let k=0; k<mitigations.length; k++){
                                 mitArr.push(mitigations[k]);
                             }
-                            data.asset[i]['mitigations'] = mitArr;
+                            const uniqueMitigations = Array.from(new Set(mitArr))
+                            data.asset[i]['mitigations'] = uniqueMitigations;
                         }
                     }
                 }
