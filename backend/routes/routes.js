@@ -70,6 +70,9 @@ router.post('/post', async (req, res) => {
 router.post('/calculateRiskScore', async (req, res) => {
     try {
         assetId = req.body.assetId;
+        var totalRiskScore = 0;
+        var totalimpactscore = 0;
+
         if (assetId) {
 
             var data = await Model.findById({ '_id': assetId })
@@ -93,19 +96,39 @@ router.post('/calculateRiskScore', async (req, res) => {
                     for (let j = 0; j < data.asset[i].threats[0].length; j++) {
                         var threatvar = data.asset[i].threats[0][j]['Technique']
                         if(threatdicts[threatvar] == undefined){
-                            threatdicts[threatvar] = 0
+                            threatdicts[threatvar] = [];
                         }
-                        threatdicts[threatvar] += 1
+                    
+                        threatdicts[threatvar].push(i);
                     }
                 }
+                //console.log(threatdicts)
                 data.asset[i]['threats'] = [threatdicts];
             }
+            var newData = data;
+
+            for (let i = 0; i < data.asset.length; i++) {
+                let newthreat = []
+                if(data.asset[i].threats.length > 0){
+
+                    for ( const key in data.asset[i].threats[0] ) {
+                        var setcount = new Set(data.asset[i].threats[0][key])
+                        data.asset[i].threats[0][key] = setcount.size
+                        newthreat.push([key , setcount.size])
+                    }
+                }
+                newData.asset[i]['threats123'] =  newthreat
+            }
+
+            console.log('_____threatsss', JSON.stringify(data));
+
+
 
         
             for (let i = 0; i < data.asset.length; i++) {
               
                 if (data.asset[i].threats.length > 0) {
-                    let sum=0;
+                    var sum=0;
                     for (let k = 0; k < data.asset[i].threats.length; k++) {
                         for ( const key in data.asset[i].threats[k] ) {
                             let cveProb = await threatProbMapping.find({ 'Technique':key }, { _id: 0, Technique: 0 });
@@ -119,12 +142,20 @@ router.post('/calculateRiskScore', async (req, res) => {
                     data.asset[i]['prob'] = 0;
                     data.asset[i]['riskScore'] = 0;
                 }
+                totalimpactscore += (data.asset[i].priority)
+                totalRiskScore += (sum * totalimpactscore)
             }
+            for(let i =0;i < data.asset.length; i ++){
+                data.asset[i]['systemRiskScore'] = totalRiskScore/totalimpactscore
+                data.asset[i]['contribution'] = (((data.asset[i]['riskScore'] * data.asset[i].priority) / data.asset[i]['systemRiskScore']) /totalimpactscore) * 100
+            }
+
+
            console.log('___________',JSON.stringify(data));
            var updatedResult = await Model.findByIdAndUpdate({'_id' : assetId}, data)
         }
         res.json({
-           result : data
+           result : newData
         })
     }
     catch (error) {
