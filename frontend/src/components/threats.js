@@ -29,7 +29,7 @@ const Threat = (props) => {
     }
 
     const handleRisk = () => {
-        let myurl = "http://18.191.203.136:4000/api/calculateRiskScore"
+        let myurl = "http://18.191.203.136:4000/api/assetMitigations"
         let object = { assetId: valueForThreat?._id }
         startLoader();
         axios.post(myurl, object ,{
@@ -37,7 +37,8 @@ const Threat = (props) => {
                 "Content-Type": "application/json",
             },
         }).then(response => {
-            setValueForRisk(response.data)
+            console.log(response.data)
+            setValueForRisk(response.data.result)
             startLoader()
             navigate("/riskscore")
         })
@@ -65,7 +66,10 @@ const Threat = (props) => {
                                     style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}
                                     sortDirection='asc'>Assets</TableCell>
                                 <TableCell
-                                    style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>Risk Score
+                                    style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>System RiskScore
+                                </TableCell>
+                                <TableCell
+                                    style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>Contribution
                                 </TableCell>
                                 <TableCell
                                     style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>Threats 
@@ -82,23 +86,33 @@ const Threat = (props) => {
                                     <TableCell component="th" scope="col" sortDirection='asc'>
                                         {row.asset}
                                     </TableCell>
-                                    <TableCell >{row?.riskScore ? row?.riskScore : 0}</TableCell>
-                                    <TableCell >{row?.threats ? row?.threats?.map((ro, i) => {
-                                        return (<React.Fragment key={i} >
-                                            {Boolean(i) && <span>,</span>}
-                                            <span>{ro}</span> </React.Fragment>)
-                                    }) : "No Threats available for this asset"}</TableCell>
+                                    {/* <TableCell >{row?.riskScore ? row?.riskScore : 0}</TableCell> */}
+                                    <TableCell >{row?.systemRiskScore ? row?.systemRiskScore : 0}</TableCell>
+                                    <TableCell >{row?.contribution ? row?.contribution : 0}</TableCell>
+                                    <TableCell >{row?.threats123?.length !=0 ?row?.threats123?.map((ro, i) => (
+                                        ro?.map((r,i)=> (
+                                            (<React.Fragment key={i} >
+                                                {Boolean(i) && <span>,</span>}
+                                                <span>{r}</span> </React.Fragment>)
+                                        ))
+                                    )): "No threats Found"}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
                 <button className="button" onClick={handleRisk}>Go to Mitigations</button>
-                <div style={{
+            </div>
+            <div style={{
                     position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    display: loading ? "block" : "none"
+                    backgroundColor: "white",
+                    height: "100vh",
+                    width: "100vw",
+                    top: "0px",
+                    left: "0px",
+                    display: loading ? "flex" : "none",
+                    alignItems: "center",
+                    justifyContent:"center"
                 }}>
                     <ClipLoader
                         color={color}
@@ -108,7 +122,6 @@ const Threat = (props) => {
                         data-testid="loader"
                     />
                 </div>
-            </div>
         </div>
     )
 

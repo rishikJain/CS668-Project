@@ -106,11 +106,11 @@ const RiskScore = (props) => {
                                         }}>
                                         <Checkbox
                                             color="primary"
-                                            checked={valueForRisk?.mitigations?.length === riskCount.length}
+                                            checked={valueForRisk?.asset?.length === riskCount.length}
                                             onChange={(e) => {
                                                 if (e.target.checked) {
                                                     setRiskCount((prev) => {
-                                                        return valueForRisk?.mitigations?.map((value, i) => {
+                                                        return valueForRisk?.asset?.map((value, i) => {
                                                             return i
                                                         }) ?? prev
                                                     })
@@ -127,7 +127,7 @@ const RiskScore = (props) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {valueForRisk?.mitigations?.map((row, i) => (
+                                {valueForRisk?.asset?.map((row, i) => (
                                     <TableRow
                                         key={i}
                                         hover
@@ -138,14 +138,14 @@ const RiskScore = (props) => {
                                         }}>
                                             <Checkbox
                                                 color="primary"
-                                                checked={riskCount.includes(i)}
+                                                checked={riskCount.includes(row._id)}
                                                 onChange={(e) => {
                                                     if (e.target.checked) {
                                                         setRiskCount((prev) => { return [...prev, Number(e.target.value)] })
                                                     } else {
                                                         setRiskCount((prev) => {
                                                             const arr = [...prev]
-                                                            const index = prev.indexOf(i)
+                                                            const index = prev.indexOf(row._id)
                                                             if (index > -1) {
                                                                 arr.splice(index, 1)
                                                                 return arr
@@ -154,10 +154,14 @@ const RiskScore = (props) => {
                                                         })
                                                     }
                                                 }}
-                                                value={i}
+                                                value={row._id}
                                             />
                                         </TableCell>
-                                        <TableCell >{row}</TableCell>
+                                        <TableCell >{row?.mitigations ? row?.mitigations.map((ro,i) =>{
+                                             return (<React.Fragment key={i} >
+                                                {Boolean(i) && <span>,</span>}
+                                                <span>{ro}</span> </React.Fragment>)
+                                        }): "No mitigations For this Threat"}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

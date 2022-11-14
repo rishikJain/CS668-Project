@@ -99,11 +99,17 @@ const Vulnerability = (props) => {
                     </Table>
                 </TableContainer>
                 <button className="button" onClick={handleThreat}>Calculate Risk Score</button>
-                <div style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    display: loading ? "block" : "none"
+            </div>
+            <div style={{
+                         position: "absolute",
+                         backgroundColor: "white",
+                         height: "100vh",
+                         width: "100vw",
+                         top: "0px",
+                         left: "0px",
+                         display: loading ? "flex" : "none",
+                         alignItems: "center",
+                         justifyContent:"center"
                 }}>
                     <ClipLoader
                         color={color}
@@ -112,7 +118,6 @@ const Vulnerability = (props) => {
                         aria-label="Loading Spinner"
                         data-testid="loader"
                     />
-                </div>
             </div>
         </div>
     )
