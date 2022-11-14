@@ -139,7 +139,7 @@ router.post('/calculateRiskScore', async (req, res) => {
                     data.asset[i]['riskScore'] = 0;
                 }
                 totalimpactscore += (data.asset[i].priority)
-                totalRiskScore += (sum * totalimpactscore)
+                totalRiskScore += (sum * (data.asset[i].priority))
             }
             for (let i = 0; i < data.asset.length; i++) {
                 data.asset[i]['systemRiskScore'] = totalRiskScore / totalimpactscore
@@ -181,24 +181,55 @@ router.post('/assetMitigations', async (req, res) => {
                     }
                 }
             }
-            
-            var finalArr = [];
+            console.log('==mitigations',JSON.stringify(data));
+            var updatedResult = await Model.findByIdAndUpdate({ '_id': assetId }, data)
+
+            var sysThreatsArr = [];
             var score = '';
-            for (let k = 0; k < data.asset.length; k++) {
-                score = data.asset[k].systemRiskScore;
-                if (data.asset[k].mitigations != undefined){
-                    if(data.asset[k].mitigations.length > 0 ) {
-                        for (let i = 0; i < data.asset[k].mitigations.length; i++) {
-                            console.log('===>>',data.asset[k].mitigations[i]);
-                            finalArr.push(data.asset[k].mitigations[i]);
-                        }
+
+            for ( let i=0; i<data.asset.length; i++){
+                    score = data.asset[i].systemRiskScore;
+
+                    for (var key in data.asset[i].threats[0] ){
+                        sysThreatsArr.push([ key , parseFloat(data.asset[i].threats[0][key].toFixed(2))])
                     }
+            }
+            const sortedThreatsData = sysThreatsArr.sort((a, b) => b[1] - a[1])
+
+            
+            let mitigationsSortedArr = [];
+            for (let i=0; i<sortedThreatsData.length; i++){
+
+                let mitigationsElement = await mitigtions.find({ 'Technique': sortedThreatsData[i][0] }, { Mitigation: 1, _id: 0 }).distinct('Mitigation');
+                if(mitigationsElement.length > 0) {
+                        for(let k=0; k<mitigationsElement.length; k++){
+                            mitigationsSortedArr.push(mitigationsElement[k]);
+                        }
                 }
             }
-            console.log(finalArr);
+
+            let uniq  = [... new Set(mitigationsSortedArr)]
+            // var finalArr = [];
+            // var score = '';
+            // for (let k = 0; k < data.asset.length; k++) {
+            //     score = data.asset[k].systemRiskScore;
+            //     if (data.asset[k].mitigations != undefined){
+            //         if(data.asset[k].mitigations.length > 0 ) {
+            //             for (let i = 0; i < data.asset[k].mitigations.length; i++) {
+            //                 finalArr.push(data.asset[k].mitigations[i]);
+            //             }
+            //         }
+            //     }
+            // }
+
+            // console.log(JSON.stringify(data))
+            // for ( let i=0; i<finalArr.length; i++){
+            //     let technique = await mitigtions.find({ 'Mitigation': finalArr[i] });
+            //     console.log(technique)
+            // }
 
             res.json({ result:{
-                mitigations : finalArr,
+                mitigations : uniq,
                 systemRiskScore : score
             } })
 
@@ -212,12 +243,21 @@ router.post('/assetMitigations', async (req, res) => {
 router.post('/reduceRiskscore', async (req, res) => {
     try {
 
-        score = req.body.score;
-        mitigationsNumber = req.body.mitigationsNumber;
-        if (mitigationsNumber) {
-            var updatedScore = score - 0.05 * mitigationsNumber
-        }
-        res.json({ score: updatedScore })
+        
+        let assetId = req.body.assetId;
+        let mitigations = req.body.mitigations;
+
+        var data = await Model.findById({ '_id': assetId })
+        console.log(data)
+
+        // for (let i=0; i < mitigations.length; i++){
+
+        // }
+        // console.log('--threats', mitigations);
+
+
+       
+        res.json({ score: 2 })
     }
     catch (error) {
         res.status(500).json({ message: error.message })

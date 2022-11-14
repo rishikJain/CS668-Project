@@ -1,4 +1,30 @@
-# Getting Started with Create React App
+# Project Abstract
+This project is build for semester project for CS-668
+
+In project we aim to analyze a system, a system can be group of different components including like Personnel Computer, LAN , routers etc.
+We analyze these assets according to there CPE names and fetch the corresponding CVEs from the NIST database with there public API
+For example CPE names for each asset is 
+`cpe:2.3:a:microsoft:powerpoint:-:*:*:*:*:*:*:*`
+
+Each component of the whole system can have multiple CVEs and based on that CVEs we find the threats for those components and then we try to find the corresponding mitigations and list them out in the most effective manner which can reduce the overall system risk score.
+
+
+# Project Structure
+This project contains 3 parts
+1. Frontend 
+2. Backend
+3. Assesment model and datasets
+
+## Frontend
+Frontend is build using reactJs technology which consumes the APIs from backend. Based on the data from the APIs we update the details on the UI
+
+## Backend
+Backend part is build using NodeJs and database we have used is MongoDB, which is hosted on remote server on linux machine.
+
+## Assesment model and datasets
+Datasets contains the list of CVEs and there corresponding vulnerabilites and the map for probability of the vulnerabilities, which are used to fetch the threats corresponding to there CVEs.
+
+# Getting Started with Frontend for Application
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
