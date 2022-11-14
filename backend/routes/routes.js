@@ -76,19 +76,18 @@ router.post('/calculateRiskScore', async (req, res) => {
         if (assetId) {
 
             var data = await Model.findById({ '_id': assetId })
-            //console.log("data: " + data);
+            console.log("data: " + data);
             for (let i = 0; i < data.asset.length; i++) {
                 var tempdata = []
                 for (let j = 0; j < data.asset[i].vuln.length; j++) {
-                    //console.log(data.asset[i])
+                    console.log('data.asset[i]-',data.asset[i])
                     let threats = await threatVulMapping.find({ 'Vuln': data.asset[i].vuln[j] }, { Technique: 1, _id: 0 });
-                    //console.log('===',threats);
+                    console.log('===',j , threats);
                     if (threats.length != 0)
                         tempdata.push(threats)
                 }
                 data.asset[i]['threats'] = tempdata;
             }
-
 
             for (let i = 0; i < data.asset.length; i++) {
                 let threatdicts = {}
@@ -102,7 +101,6 @@ router.post('/calculateRiskScore', async (req, res) => {
                         threatdicts[threatvar].push(i);
                     }
                 }
-                //console.log(threatdicts)
                 data.asset[i]['threats'] = [threatdicts];
             }
             var newData = data;
@@ -171,7 +169,7 @@ router.post('/assetMitigations', async (req, res) => {
                 if (data.asset[i].threats.length > 0) {
                     for (let j = 0; j < data.asset[i].threats.length; j++) {
                         for (const key in data.asset[i].threats[0]) {
-                            let mitigations = await mitigtions.find({ 'Technique': key }, { Mitigation: 1, _id: 0 }).distinct('Mitigation');
+                            let mitigations = await mitigtions.find({ 'Technique': key }).distinct('Mitigation');
                             for (let k = 0; k < mitigations.length; k++) {
                                 mitArr.push(mitigations[k]);
                             }
@@ -182,7 +180,6 @@ router.post('/assetMitigations', async (req, res) => {
                 }
             }
             console.log('==mitigations',JSON.stringify(data));
-            var updatedResult = await Model.findByIdAndUpdate({ '_id': assetId }, data)
 
             var sysThreatsArr = [];
             var score = '';
@@ -196,38 +193,26 @@ router.post('/assetMitigations', async (req, res) => {
             }
             const sortedThreatsData = sysThreatsArr.sort((a, b) => b[1] - a[1])
 
-            
+            // console.log("--sortedArr",sortedThreatsData)
             let mitigationsSortedArr = [];
+            let arrThreatMap = []
             for (let i=0; i<sortedThreatsData.length; i++){
-
                 let mitigationsElement = await mitigtions.find({ 'Technique': sortedThreatsData[i][0] }, { Mitigation: 1, _id: 0 }).distinct('Mitigation');
+                arrThreatMap.push({key : sortedThreatsData[i][0],value :mitigationsElement});
+
                 if(mitigationsElement.length > 0) {
                         for(let k=0; k<mitigationsElement.length; k++){
                             mitigationsSortedArr.push(mitigationsElement[k]);
-                        }
+                    }
                 }
             }
+            for(let k=0; k<data.asset.length; k++){
+                data.asset[k]['arrayThreatMap'] = arrThreatMap
+            }
+            var updatedResult = await Model.findByIdAndUpdate({ '_id': assetId }, data)
 
             let uniq  = [... new Set(mitigationsSortedArr)]
-            // var finalArr = [];
-            // var score = '';
-            // for (let k = 0; k < data.asset.length; k++) {
-            //     score = data.asset[k].systemRiskScore;
-            //     if (data.asset[k].mitigations != undefined){
-            //         if(data.asset[k].mitigations.length > 0 ) {
-            //             for (let i = 0; i < data.asset[k].mitigations.length; i++) {
-            //                 finalArr.push(data.asset[k].mitigations[i]);
-            //             }
-            //         }
-            //     }
-            // }
-
-            // console.log(JSON.stringify(data))
-            // for ( let i=0; i<finalArr.length; i++){
-            //     let technique = await mitigtions.find({ 'Mitigation': finalArr[i] });
-            //     console.log(technique)
-            // }
-
+            
             res.json({ result:{
                 mitigations : uniq,
                 systemRiskScore : score
@@ -243,21 +228,22 @@ router.post('/assetMitigations', async (req, res) => {
 router.post('/reduceRiskscore', async (req, res) => {
     try {
 
-        
         let assetId = req.body.assetId;
         let mitigations = req.body.mitigations;
 
         var data = await Model.findById({ '_id': assetId })
-        console.log(data)
+        console.log(JSON.stringify(data.asset[0].arrayThreatMap))
+        const riskscore = data.asset[0].systemRiskScore - 0.05;
+        
+        for(let i=0; i<mitigations.length; i++){
+            for(let k=0;k<data.asset[0].arrayThreatMap.length; k++){
+                if (data.asset[0].arrayThreatMap[k].value.includes(mitigations[i])){
+                    console.log('true');
+                }
+            }            
+        }
 
-        // for (let i=0; i < mitigations.length; i++){
-
-        // }
-        // console.log('--threats', mitigations);
-
-
-       
-        res.json({ score: 2 })
+        res.json({ score: riskscore })
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -265,20 +251,7 @@ router.post('/reduceRiskscore', async (req, res) => {
 })
 
 
-//Get all threat-vuln
-router.get('/getAllVul', async (req, res) => {
-    const a = req.query.skip;
-    const b = req.query.limit
-    try {
-        const data = await threatVulMapping.find({}).skip(a).limit(b);
-        res.json(data)
-    }
-    catch (error) {
-        res.status(500).json({ message: error.message })
-    }
-})
 
-//Get all threat-prob
 router.get('/threatProb', async (req, res) => {
     const a = req.query.skip;
     const b = req.query.limit
