@@ -78,27 +78,27 @@ router.post('/calculateRiskScore', async (req, res) => {
             var data = await Model.findById({ '_id': assetId })
             //console.log("data: " + data);
             for (let i = 0; i < data.asset.length; i++) {
-                var tempdata=[]
+                var tempdata = []
                 for (let j = 0; j < data.asset[i].vuln.length; j++) {
                     //console.log(data.asset[i])
                     let threats = await threatVulMapping.find({ 'Vuln': data.asset[i].vuln[j] }, { Technique: 1, _id: 0 });
                     //console.log('===',threats);
-                    if(threats.length != 0)
+                    if (threats.length != 0)
                         tempdata.push(threats)
                 }
                 data.asset[i]['threats'] = tempdata;
             }
-        
-       
+
+
             for (let i = 0; i < data.asset.length; i++) {
                 let threatdicts = {}
-                if(data.asset[i].threats.length > 0){
+                if (data.asset[i].threats.length > 0) {
                     for (let j = 0; j < data.asset[i].threats[0].length; j++) {
                         var threatvar = data.asset[i].threats[0][j]['Technique']
-                        if(threatdicts[threatvar] == undefined){
+                        if (threatdicts[threatvar] == undefined) {
                             threatdicts[threatvar] = [];
                         }
-                    
+
                         threatdicts[threatvar].push(i);
                     }
                 }
@@ -109,33 +109,29 @@ router.post('/calculateRiskScore', async (req, res) => {
 
             for (let i = 0; i < data.asset.length; i++) {
                 let newthreat = []
-                if(data.asset[i].threats.length > 0){
+                if (data.asset[i].threats.length > 0) {
 
-                    for ( const key in data.asset[i].threats[0] ) {
+                    for (const key in data.asset[i].threats[0]) {
                         var setcount = new Set(data.asset[i].threats[0][key])
                         data.asset[i].threats[0][key] = setcount.size
-                        newthreat.push([key , setcount.size])
+                        newthreat.push([key, setcount.size])
                     }
                 }
-                newData.asset[i]['threats123'] =  newthreat
+                newData.asset[i]['threats123'] = newthreat
             }
 
-            console.log('_____threatsss', JSON.stringify(data));
 
-
-
-        
             for (let i = 0; i < data.asset.length; i++) {
-              
+
                 if (data.asset[i].threats.length > 0) {
-                    var sum=0;
+                    var sum = 0;
                     for (let k = 0; k < data.asset[i].threats.length; k++) {
-                        for ( const key in data.asset[i].threats[k] ) {
-                            let cveProb = await threatProbMapping.find({ 'Technique':key }, { _id: 0, Technique: 0 });
-                            data.asset[i].threats[k][key] = parseFloat(cveProb[0].Probability)*(data.asset[i].threats[k][key]);
+                        for (const key in data.asset[i].threats[k]) {
+                            let cveProb = await threatProbMapping.find({ 'Technique': key }, { _id: 0, Technique: 0 });
+                            data.asset[i].threats[k][key] = parseFloat(cveProb[0].Probability) * (data.asset[i].threats[k][key]);
                             sum += data.asset[i].threats[k][key];
                         }
-                    } 
+                    }
                     data.asset[i]['riskScore'] = sum;
 
                 } else {
@@ -145,17 +141,17 @@ router.post('/calculateRiskScore', async (req, res) => {
                 totalimpactscore += (data.asset[i].priority)
                 totalRiskScore += (sum * totalimpactscore)
             }
-            for(let i =0;i < data.asset.length; i ++){
-                data.asset[i]['systemRiskScore'] = totalRiskScore/totalimpactscore
-                data.asset[i]['contribution'] = (((data.asset[i]['riskScore'] * data.asset[i].priority) / data.asset[i]['systemRiskScore']) /totalimpactscore) * 100
+            for (let i = 0; i < data.asset.length; i++) {
+                data.asset[i]['systemRiskScore'] = totalRiskScore / totalimpactscore
+                data.asset[i]['contribution'] = (((data.asset[i]['riskScore'] * data.asset[i].priority) / data.asset[i]['systemRiskScore']) / totalimpactscore) * 100
             }
 
 
-           console.log('___________',JSON.stringify(data));
-           var updatedResult = await Model.findByIdAndUpdate({'_id' : assetId}, data)
+            console.log('___________', JSON.stringify(data));
+            var updatedResult = await Model.findByIdAndUpdate({ '_id': assetId }, data)
         }
         res.json({
-           result : newData
+            result: newData
         })
     }
     catch (error) {
@@ -170,15 +166,13 @@ router.post('/assetMitigations', async (req, res) => {
         if (assetId) {
             var data = await Model.findById({ '_id': assetId })
 
-            for(let i=0; i<data.asset.length; i++) {
+            for (let i = 0; i < data.asset.length; i++) {
                 var mitArr = [];
                 if (data.asset[i].threats.length > 0) {
-                    for( let j=0; j<data.asset[i].threats.length; j++) {
-                        //console.log(data.asset[i].threats[0])
-                        for ( const key in data.asset[i].threats[0] ) {
-                            let mitigations = await mitigtions.find({'Technique': key},{Mitigation:1,_id:0}).distinct('Mitigation');
-                            console.log("======>>>",mitigations)
-                            for ( let k=0; k<mitigations.length; k++){
+                    for (let j = 0; j < data.asset[i].threats.length; j++) {
+                        for (const key in data.asset[i].threats[0]) {
+                            let mitigations = await mitigtions.find({ 'Technique': key }, { Mitigation: 1, _id: 0 }).distinct('Mitigation');
+                            for (let k = 0; k < mitigations.length; k++) {
                                 mitArr.push(mitigations[k]);
                             }
                             const uniqueMitigations = Array.from(new Set(mitArr))
@@ -187,9 +181,28 @@ router.post('/assetMitigations', async (req, res) => {
                     }
                 }
             }
-            console.log('____',JSON.stringify(data));
+            
+            var finalArr = [];
+            var score = '';
+            for (let k = 0; k < data.asset.length; k++) {
+                score = data.asset[k].systemRiskScore;
+                if (data.asset[k].mitigations != undefined){
+                    if(data.asset[k].mitigations.length > 0 ) {
+                        for (let i = 0; i < data.asset[k].mitigations.length; i++) {
+                            console.log('===>>',data.asset[k].mitigations[i]);
+                            finalArr.push(data.asset[k].mitigations[i]);
+                        }
+                    }
+                }
+            }
+            console.log(finalArr);
+
+            res.json({ result:{
+                mitigations : finalArr,
+                systemRiskScore : score
+            } })
+
         }
-        res.json({ result : data })
     }
     catch (error) {
         res.status(500).json({ message: error.message })
@@ -202,7 +215,7 @@ router.post('/reduceRiskscore', async (req, res) => {
         score = req.body.score;
         mitigationsNumber = req.body.mitigationsNumber;
         if (mitigationsNumber) {
-             var updatedScore = score - 0.05 * mitigationsNumber
+            var updatedScore = score - 0.05 * mitigationsNumber
         }
         res.json({ score: updatedScore })
     }
