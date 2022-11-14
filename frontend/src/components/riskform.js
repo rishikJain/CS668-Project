@@ -119,7 +119,6 @@ const Risk = (props) => {
           "Content-Type": "application/json",
         },
       }).then(response => {
-        console.log(response)
         setValue(response.data[0])
         startLoader()
         navigate("/Vulnerablities")

@@ -37,7 +37,6 @@ const Threat = (props) => {
                 "Content-Type": "application/json",
             },
         }).then(response => {
-            console.log(response.data)
             setValueForRisk(response.data.result)
             startLoader()
             navigate("/riskscore")

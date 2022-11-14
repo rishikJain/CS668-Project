@@ -17,7 +17,6 @@ const Vulnerability = (props) => {
     let [loading, setLoading] = useState(false);
     let [color, setColor] = useState(green);
     const { value } = useContext(Context)
-    console.log(value)
     useEffect(() => {
         if (value === null) {
             navigate("/")
@@ -32,14 +31,12 @@ const Vulnerability = (props) => {
     const handleThreat = () => {
         let myurl = "http://18.191.203.136:4000/api/calculateRiskScore"
         let object = { assetId: value?._id }
-        console.log(object)
         startLoader();
         axios.post(myurl,object, {
             headers: {
               "Content-Type": "application/json",
             },
           }).then(response => {
-            console.log(response)
             setValueForThreat(response.data.result)
             startLoader()
             navigate("/threats")

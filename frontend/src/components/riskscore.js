@@ -42,7 +42,6 @@ const RiskScore = (props) => {
     const handleRiskScore = () => {
         if (riskCount?.length != 0) {
             let object = { score : valueForRisk?.systemRiskScore ,mitigationsNumber: riskCount?.length }
-            console.log(object)
             let myurl = "http://18.191.203.136:4000/api/reduceRiskscore"
             startLoader();
             axios.post(myurl, object, {
@@ -50,8 +49,8 @@ const RiskScore = (props) => {
                     "Content-Type": "application/json",
                 },
             }).then(response => {
-                console.log(response)
-                setScoreValue(response?.data?.systemRiskScore)
+                setScoreValue(response?.data?.score)
+                setRiskCount([])
                 startLoader()
             })
         } else {
@@ -88,7 +87,7 @@ const RiskScore = (props) => {
                         />
                     </div>
                 </div>
-                <div style={{ width: "50%", height: "50%", marginRight: "40px" }}>
+                <div style={{ width: "50%", height: "50%", marginLeft: "30px" , marginRight:"30px"}}>
                     <TableContainer component={Paper}
                         style={{ maxHeight: "400px" }}>
                         <Table
