@@ -1,8 +1,0 @@
-.hide {
-    display: none;
-  }
-
-  .ReactSpeedometer :hover + .hide {
-    display: block;
-    color: red;
-  }
