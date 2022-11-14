@@ -109,11 +109,11 @@ router.post('/calculateRiskScore', async (req, res) => {
                     for (let k = 0; k < data.asset[i].threats.length; k++) {
                         for ( const key in data.asset[i].threats[k] ) {
                             let cveProb = await threatProbMapping.find({ 'Technique':key }, { _id: 0, Technique: 0 });
-                            data.asset[i].threats[k][key] = parseFloat(cveProb[0].Probability)*(data.asset[i].threats[k][key]*data.asset[i].priority);
+                            data.asset[i].threats[k][key] = parseFloat(cveProb[0].Probability)*(data.asset[i].threats[k][key]);
                             sum += data.asset[i].threats[k][key];
                         }
                     } 
-                    data.asset[i]['riskScore'] = sum/data.asset[i].priority;
+                    data.asset[i]['riskScore'] = sum;
 
                 } else {
                     data.asset[i]['prob'] = 0;
