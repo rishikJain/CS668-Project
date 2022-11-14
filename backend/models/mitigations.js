@@ -15,4 +15,4 @@ const mitigations = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('technique-policy_recommendations', mitigations)
+module.exports = mongoose.model('technique_policy_recommendation', mitigations)
