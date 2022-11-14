@@ -9,4 +9,4 @@ const threatVulMapping = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('threat-vuln-map', threatVulMapping)
+module.exports = mongoose.model('threat-vuln', threatVulMapping)
