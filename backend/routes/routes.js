@@ -169,7 +169,6 @@ router.post('/assetMitigations', async (req, res) => {
         assetId = req.body.assetId;
         if (assetId) {
             var data = await Model.findById({ '_id': assetId })
-            // console.log(JSON.stringify(data));
 
             for(let i=0; i<data.asset.length; i++) {
                 var mitArr = [];
@@ -178,6 +177,7 @@ router.post('/assetMitigations', async (req, res) => {
                         //console.log(data.asset[i].threats[0])
                         for ( const key in data.asset[i].threats[0] ) {
                             let mitigations = await mitigtions.find({'Technique': key},{Mitigation:1,_id:0}).distinct('Mitigation');
+                            console.log("======>>>",mitigations)
                             mitArr.push(mitigations);
                             data.asset[i]['mitigations'] = mitArr;
                         }
