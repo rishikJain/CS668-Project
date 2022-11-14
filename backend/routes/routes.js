@@ -178,7 +178,9 @@ router.post('/assetMitigations', async (req, res) => {
                         for ( const key in data.asset[i].threats[0] ) {
                             let mitigations = await mitigtions.find({'Technique': key},{Mitigation:1,_id:0}).distinct('Mitigation');
                             console.log("======>>>",mitigations)
-                            mitArr.push(mitigations);
+                            for ( let k=0; k<mitigations.length; k++){
+                                mitArr.push(mitigations[k]);
+                            }
                             data.asset[i]['mitigations'] = mitArr;
                         }
                     }
