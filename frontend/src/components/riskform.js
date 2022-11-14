@@ -180,7 +180,7 @@ const Risk = (props) => {
       <div className="main">
         <form className="form">
           <div className="container">
-            <h4>RiskManagement and Vulnerability assessment</h4>
+            <h4>Risk Management and Vulnerability assessment</h4>
             <div>
               <SingleSelect className="selectclass for-red--line"
                 value={deviceType}
