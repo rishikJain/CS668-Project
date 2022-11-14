@@ -189,7 +189,7 @@ router.post('/assetMitigations', async (req, res) => {
                     score = data.asset[i].systemRiskScore;
 
                     for (var key in data.asset[i].threats[0] ){
-                        sysThreatsArr.push([ key , parseFloat(data.asset[i].threats[0][key].toFixed(2))-0.05])
+                        sysThreatsArr.push([ key , parseFloat(data.asset[i].threats[0][key].toFixed(2))])
                     }
             }
             const sortedThreatsData = sysThreatsArr.sort((a, b) => b[1] - a[1])
