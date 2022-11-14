@@ -27,6 +27,7 @@ let override = {
 
 const RiskScore = (props) => {
     const { valueForRisk } = useContext(Context)
+    const { value } = useContext(Context)
     const navigate = useNavigate();
     let [loading, setLoading] = useState(false);
     let [color, setColor] = useState(green);
@@ -41,7 +42,7 @@ const RiskScore = (props) => {
 
     const handleRiskScore = () => {
         if (riskCount?.length != 0) {
-            let object = { score : valueForRisk?.systemRiskScore ,mitigationsNumber: riskCount?.length }
+            let object = { assetId : value?._id ,mitigations: riskCount }
             let myurl = "http://18.191.203.136:4000/api/reduceRiskscore"
             startLoader();
             axios.post(myurl, object, {
@@ -110,7 +111,7 @@ const RiskScore = (props) => {
                                                 if (e.target.checked) {
                                                     setRiskCount((prev) => {
                                                         return valueForRisk?.mitigations?.map((value, i) => {
-                                                            return i
+                                                            return value
                                                         }) ?? prev
                                                     })
                                                 } else {
@@ -137,14 +138,15 @@ const RiskScore = (props) => {
                                         }}>
                                             <Checkbox
                                                 color="primary"
-                                                checked={riskCount.includes(i)}
+                                                checked={riskCount.includes(row)}
                                                 onChange={(e) => {
                                                     if (e.target.checked) {
-                                                        setRiskCount((prev) => { return [...prev, Number(e.target.value)] })
+                                                        setRiskCount((prev) => { return [...prev, e.target.value] })
+                                                        console.log(riskCount)
                                                     } else {
                                                         setRiskCount((prev) => {
                                                             const arr = [...prev]
-                                                            const index = prev.indexOf(i)
+                                                            const index = prev.indexOf(row)
                                                             if (index > -1) {
                                                                 arr.splice(index, 1)
                                                                 return arr
@@ -153,7 +155,7 @@ const RiskScore = (props) => {
                                                         })
                                                     }
                                                 }}
-                                                value={i}
+                                                value={row}
                                             />
                                         </TableCell>
                                         <TableCell >{row}</TableCell>
