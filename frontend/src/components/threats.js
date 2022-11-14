@@ -66,9 +66,6 @@ const Threat = (props) => {
                                     style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}
                                     sortDirection='asc'>Assets</TableCell>
                                 <TableCell
-                                    style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>System RiskScore
-                                </TableCell>
-                                <TableCell
                                     style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>Contribution
                                 </TableCell>
                                 <TableCell
@@ -86,15 +83,12 @@ const Threat = (props) => {
                                     <TableCell component="th" scope="col" sortDirection='asc'>
                                         {row.asset}
                                     </TableCell>
-                                    {/* <TableCell >{row?.riskScore ? row?.riskScore : 0}</TableCell> */}
-                                    <TableCell >{row?.systemRiskScore ? row?.systemRiskScore : 0}</TableCell>
                                     <TableCell >{row?.contribution ? row?.contribution : 0}</TableCell>
                                     <TableCell >{row?.threats123?.length !=0 ?row?.threats123?.map((ro, i) => (
-                                        ro?.map((r,i)=> (
                                             (<React.Fragment key={i} >
-                                                {Boolean(i) && <span>,</span>}
-                                                <span>{r}</span> </React.Fragment>)
-                                        ))
+                                                    <ul style={{padding : "0px 0px 0px 13px"}}>
+                                                        <li style = {{fontWeight:"bold"}}>{ ro[0]}</li>
+                                                    </ul> </React.Fragment>)
                                     )): "No threats Found"}</TableCell>
                                 </TableRow>
                             ))}

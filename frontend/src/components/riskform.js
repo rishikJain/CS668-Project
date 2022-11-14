@@ -39,19 +39,19 @@ let sendDashBoardData = {}
 const optionsForDev = [
   {
     value: "PC",
-    label: "PC"
+    label: "Laptop/Personal computer"
   },
   {
     value: "NW",
-    label: "NW"
+    label: "Network"
   },
   {
     value: "DB",
-    label: "DB"
+    label: "Data Base"
   },
   {
     value: "SER",
-    label: "Ser"
+    label: "Server"
   }
 ];
 
@@ -218,7 +218,7 @@ const Risk = (props) => {
               <TextField className="selectclass"
                 value={priority}
                 inputProps={{ min: 0 }}
-                label="Priority"
+                label="Impact"
                 error={errorForPriority}
                 helperText={errorForPriority ? 'Required' : ''}
                 vvariant="standard"

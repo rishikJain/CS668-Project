@@ -90,8 +90,9 @@ const Vulnerability = (props) => {
                                     <TableCell >{row.priority}</TableCell>
                                     <TableCell >{row.vuln.map((ro, i) => {
                                         return (<React.Fragment key={i} >
-                                            {Boolean(i) && <span>,</span>}
-                                            <span>{ro}</span> </React.Fragment>)
+                                          <ul style={{padding : "0px 0px 0px 13px"}}>
+                                                        <li style = {{fontWeight:"bold"}}>{ ro}</li>
+                                                    </ul></React.Fragment>)
                                     })}</TableCell>
                                 </TableRow>
                             ))}

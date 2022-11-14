@@ -30,7 +30,7 @@ const RiskScore = (props) => {
     const navigate = useNavigate();
     let [loading, setLoading] = useState(false);
     let [color, setColor] = useState(green);
-    const [scorevalue, setScoreValue] = useState(valueForRisk?.score)
+    const [scorevalue, setScoreValue] = useState(valueForRisk?.systemRiskScore)
     const [riskCount, setRiskCount] = useState([])
     const [open, setOpen] = React.useState(false);
     useEffect(() => {
@@ -41,9 +41,9 @@ const RiskScore = (props) => {
 
     const handleRiskScore = () => {
         if (riskCount?.length != 0) {
-            let object = { mitigationsNumber: riskCount?.length }
+            let object = { score : valueForRisk?.systemRiskScore ,mitigationsNumber: riskCount?.length }
             console.log(object)
-            let myurl = "http://18.191.203.136:4000/api/assetMitigations"
+            let myurl = "http://18.191.203.136:4000/api/reduceRiskscore"
             startLoader();
             axios.post(myurl, object, {
                 headers: {
@@ -51,7 +51,7 @@ const RiskScore = (props) => {
                 },
             }).then(response => {
                 console.log(response)
-                setScoreValue(response?.data?.score)
+                setScoreValue(response?.data?.systemRiskScore)
                 startLoader()
             })
         } else {
@@ -106,11 +106,11 @@ const RiskScore = (props) => {
                                         }}>
                                         <Checkbox
                                             color="primary"
-                                            checked={valueForRisk?.asset?.length === riskCount.length}
+                                            checked={valueForRisk?.mitigations?.length === riskCount.length}
                                             onChange={(e) => {
                                                 if (e.target.checked) {
                                                     setRiskCount((prev) => {
-                                                        return valueForRisk?.asset?.map((value, i) => {
+                                                        return valueForRisk?.mitigations?.map((value, i) => {
                                                             return i
                                                         }) ?? prev
                                                     })
@@ -127,7 +127,7 @@ const RiskScore = (props) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {valueForRisk?.asset?.map((row, i) => (
+                                {valueForRisk?.mitigations?.map((row, i) => (
                                     <TableRow
                                         key={i}
                                         hover
@@ -138,14 +138,14 @@ const RiskScore = (props) => {
                                         }}>
                                             <Checkbox
                                                 color="primary"
-                                                checked={riskCount.includes(row._id)}
+                                                checked={riskCount.includes(i)}
                                                 onChange={(e) => {
                                                     if (e.target.checked) {
                                                         setRiskCount((prev) => { return [...prev, Number(e.target.value)] })
                                                     } else {
                                                         setRiskCount((prev) => {
                                                             const arr = [...prev]
-                                                            const index = prev.indexOf(row._id)
+                                                            const index = prev.indexOf(i)
                                                             if (index > -1) {
                                                                 arr.splice(index, 1)
                                                                 return arr
@@ -154,14 +154,10 @@ const RiskScore = (props) => {
                                                         })
                                                     }
                                                 }}
-                                                value={row._id}
+                                                value={i}
                                             />
                                         </TableCell>
-                                        <TableCell >{row?.mitigations ? row?.mitigations.map((ro,i) =>{
-                                             return (<React.Fragment key={i} >
-                                                {Boolean(i) && <span>,</span>}
-                                                <span>{ro}</span> </React.Fragment>)
-                                        }): "No mitigations For this Threat"}</TableCell>
+                                        <TableCell >{row}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -171,9 +167,13 @@ const RiskScore = (props) => {
                 </div>
                 <div style={{
                     position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    display: loading ? "block" : "none"
+                    height: "100vh",
+                    width: "100vw",
+                    top: "0px",
+                    left: "0px",
+                    display: loading ? "flex" : "none",
+                    alignItems: "center",
+                    justifyContent:"center"
                 }}>
                     <ClipLoader
                         color={color}
