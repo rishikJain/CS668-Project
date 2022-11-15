@@ -243,7 +243,7 @@ router.post('/reduceRiskscore', async (req, res) => {
             }            
         }
 
-        res.json({ score: riskscore })
+        res.json({ score: Math.abs(riskscore) })
     }
     catch (error) {
         res.status(500).json({ message: error.message })
