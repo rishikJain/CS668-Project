@@ -216,20 +216,20 @@ const Risk = (props) => {
             <div className="margin-set">
               <TextField className="selectclass"
                 value={priority}
-                inputProps={{ min: 0 }}
+                inputProps={{ min: 0 , max: 10 ,maxLength: 2}}
                 label="Impact"
                 error={errorForPriority}
                 helperText={errorForPriority ? 'Required' : ''}
                 vvariant="standard"
-                type="number"
-                // inputRef={refForPriority}
+                type="text"
                 onChange={event => {
                   setPriority(event.target.value)
                   seterrorForPriority(!(Boolean(event.target.value)))
-
                 }}
                 onKeyPress={(event) => {
-                  if (event?.key === '-' || event?.key === '+') {
+                  if (event?.key === '-' || event?.key === '+' || 
+                  (event?.charCode >= 32 && event?.charCode <= 47)  ||
+                  (event?.charCode >= 58 && event?.charCode <= 127)) {
                     event.preventDefault();
                   }
                 }} />
@@ -268,7 +268,7 @@ const Risk = (props) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              { submit? "Added Items are" + count : "You added " + count + " item(s).Do you want to send it?"}
+              { submit? "Added Items are " + count : "You added " + count + " item(s).Do you want to send it?"}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
