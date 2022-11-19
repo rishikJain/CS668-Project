@@ -76,47 +76,70 @@ router.post('/calculateRiskScore', async (req, res) => {
         if (assetId) {
 
             var data = await Model.findById({ '_id': assetId })
-            console.log("data: " + data);
-            for (let i = 0; i < data.asset.length; i++) {
-                var tempdata = []
-                for (let j = 0; j < data.asset[i].vuln.length; j++) {
-                    console.log('data.asset[i]-',data.asset[i])
-                    let threats = await threatVulMapping.find({ 'Vuln': data.asset[i].vuln[j] }, { Technique: 1, _id: 0 });
-                    console.log('===',j , threats);
-                    if (threats.length != 0)
-                        tempdata.push(threats)
-                }
-                data.asset[i]['threats'] = tempdata;
-            }
+            // console.log("data: " + data);
 
             for (let i = 0; i < data.asset.length; i++) {
-                let threatdicts = {}
-                if (data.asset[i].threats.length > 0) {
+                //var tempdata = []
+                var val = []
+                for (let j = 0; j < data.asset[i].vuln.length; j++) {
+                    //let threats = await threatVulMapping.find({ 'Vuln': data.asset[i].vuln[j] }, { Technique: 1, _id: 0 });
+                    val.push(data.asset[i].vuln[j])
+
+                    //if (threats.length != 0)
+                    //    tempdata.push(threats)
+                }
+                let threats  = await threatVulMapping.find({ 'Vuln' : { $in : val}});
+                
+                var dictThreats = []
+                for(let j=0;j<threats.length;j++){
+                    dictThreats.push(threats[j]['Technique'])
+                }
+                //console.log('\nthreat: ', new Set(dictThreats))
+                data.asset[i]['threats'] = [dictThreats];
+            }
+
+            //console.log(">> JSON data: " + JSON.stringify(data));
+
+            let threatdicts = {}
+            for (let i = 0; i < data.asset.length; i++) {
                     for (let j = 0; j < data.asset[i].threats[0].length; j++) {
-                        var threatvar = data.asset[i].threats[0][j]['Technique']
+                        
+                        var threatvar = data.asset[i].threats[0][j]
                         if (threatdicts[threatvar] == undefined) {
-                            threatdicts[threatvar] = [];
+                            threatdicts[threatvar] = new Set();
                         }
 
-                        threatdicts[threatvar].push(i);
+                        if(!threatdicts[threatvar].has(i)){
+                            threatdicts[threatvar].add(i);
+                        }
                     }
-                }
-                data.asset[i]['threats'] = [threatdicts];
+                    //console.log('\nthreat: ', threatdicts)
             }
-            var newData = data;
+
+            let newthreat = []
+            for (const key in threatdicts) {
+                let sizelist = threatdicts[key].size
+                threatdicts[key] = sizelist
+                newthreat.push([key, sizelist])
+            }
 
             for (let i = 0; i < data.asset.length; i++) {
-                let newthreat = []
-                if (data.asset[i].threats.length > 0) {
-
-                    for (const key in data.asset[i].threats[0]) {
-                        var setcount = new Set(data.asset[i].threats[0][key])
-                        data.asset[i].threats[0][key] = setcount.size
-                        newthreat.push([key, setcount.size])
-                    }
-                }
-                newData.asset[i]['threats123'] = newthreat
+                data.asset[i]['threats'] = [threatdicts];
+                data.asset[i]['threats123'] = newthreat
             }
+
+            //console.log("\nData: ",JSON.stringify(data))
+
+            // for (let i = 0; i < data.asset.length; i++) {
+            //     let newthreat = []
+            //     for (const key in data.asset[i].threats[0]) {
+            //         console.log("\ndata: ",i,key, data.asset[i].threats[0][key], data.asset[i].threats[0][key].size)
+            //         data.asset[i].threats[0][key] = data.asset[i].threats[0][key].size
+            //         //console.log("Size: ", setcount.size)
+            //         newthreat.push([key, data.asset[i].threats[0][key].size])
+            //     }
+            //     data.asset[i]['threats123'] = newthreat
+            // }
 
 
             for (let i = 0; i < data.asset.length; i++) {
@@ -126,6 +149,9 @@ router.post('/calculateRiskScore', async (req, res) => {
                     for (let k = 0; k < data.asset[i].threats.length; k++) {
                         for (const key in data.asset[i].threats[k]) {
                             let cveProb = await threatProbMapping.find({ 'Technique': key }, { _id: 0, Technique: 0 });
+                            console.log("==================")
+                            console.log((cveProb[0].Probability),"===",data.asset[i].threats[k][key]);
+                            console.log("==================")
                             data.asset[i].threats[k][key] = parseFloat(cveProb[0].Probability) * (data.asset[i].threats[k][key]);
                             sum += data.asset[i].threats[k][key];
                         }
@@ -145,14 +171,15 @@ router.post('/calculateRiskScore', async (req, res) => {
             }
 
 
-            console.log('___________', JSON.stringify(data));
+            // console.log('___________', JSON.stringify(data));
             var updatedResult = await Model.findByIdAndUpdate({ '_id': assetId }, data)
         }
         res.json({
-            result: newData
+            result: data
         })
     }
     catch (error) {
+        console.log(error)
         res.status(500).json({ message: error.message })
     }
 })
