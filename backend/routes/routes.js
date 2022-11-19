@@ -125,46 +125,30 @@ router.post('/calculateRiskScore', async (req, res) => {
 
             for (let i = 0; i < data.asset.length; i++) {
                 data.asset[i]['threats'] = [threatdicts];
-                data.asset[i]['threats123'] = newthreat
+                //data.asset[i]['threats123'] = newthreat
             }
-
-            //console.log("\nData: ",JSON.stringify(data))
-
-            // for (let i = 0; i < data.asset.length; i++) {
-            //     let newthreat = []
-            //     for (const key in data.asset[i].threats[0]) {
-            //         console.log("\ndata: ",i,key, data.asset[i].threats[0][key], data.asset[i].threats[0][key].size)
-            //         data.asset[i].threats[0][key] = data.asset[i].threats[0][key].size
-            //         //console.log("Size: ", setcount.size)
-            //         newthreat.push([key, data.asset[i].threats[0][key].size])
-            //     }
-            //     data.asset[i]['threats123'] = newthreat
-            // }
-
-
-            for (let i = 0; i < data.asset.length; i++) {
-
-                if (data.asset[i].threats.length > 0) {
-                    var sum = 0;
-                    for (let k = 0; k < data.asset[i].threats.length; k++) {
-                        for (const key in data.asset[i].threats[k]) {
-                            let cveProb = await threatProbMapping.find({ 'Technique': key }, { _id: 0, Technique: 0 });
-                            console.log("==================")
-                            console.log((cveProb[0].Probability),"===",data.asset[i].threats[k][key]);
-                            console.log("==================")
-                            data.asset[i].threats[k][key] = parseFloat(cveProb[0].Probability) * (data.asset[i].threats[k][key]);
-                            sum += data.asset[i].threats[k][key];
-                        }
+           
+            for (let j=0; j<data.asset.length; j++){
+                if (data.asset[j].threats.length > 0) {
+                var newDict = {};
+                var sum = 0;                    
+                    for (const key in data.asset[j].threats[0]){
+                        let cveProb = await threatProbMapping.find({ 'Technique': key }, { _id: 0, Technique: 0 });
+                        console.log(j,'--key--',key,'---value---' ,data.asset[j].threats[0][key] ,'---prob----', parseFloat(cveProb[0].Probability)*data.asset[j].threats[0][key]);
+                        // data.asset[0].threats[0][key] = parseFloat(cveProb[0].Probability)*data.asset[j].threats[0][key];
+                        newDict[key] = parseFloat(cveProb[0].Probability)*data.asset[j].threats[0][key]
+                        sum += data.asset[j].threats[0][key];
                     }
-                    data.asset[i]['riskScore'] = sum;
-
+                    data.asset[j]['likeliness'] = [newDict];
+                    data.asset[j]['riskScore'] = sum;
                 } else {
-                    data.asset[i]['prob'] = 0;
-                    data.asset[i]['riskScore'] = 0;
+                    data.asset[j]['prob'] = 0;
+                    data.asset[j]['riskScore'] = 0;
                 }
-                totalimpactscore += (data.asset[i].priority)
-                totalRiskScore += (sum * (data.asset[i].priority))
+                totalimpactscore += (data.asset[j].priority)
+                totalRiskScore += (sum * (data.asset[j].priority))
             }
+
             for (let i = 0; i < data.asset.length; i++) {
                 data.asset[i]['systemRiskScore'] = totalRiskScore / totalimpactscore
                 data.asset[i]['contribution'] = (((data.asset[i]['riskScore'] * data.asset[i].priority) / data.asset[i]['systemRiskScore']) / totalimpactscore) * 100
