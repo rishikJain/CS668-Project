@@ -83,7 +83,7 @@ const Threat = (props) => {
                                         {row.asset}
                                     </TableCell>
                                     <TableCell >{row?.contribution ? row?.contribution : 0}</TableCell>
-                                    <TableCell >{row?.threats123?.length !=0 ?row?.threats123?.map((ro, i) => (
+                                    <TableCell >{row?.threats?.length !=0 ?row?.threats123?.map((ro, i) => (
                                             (<React.Fragment key={i} >
                                                     <ul style={{padding : "0px 0px 0px 13px"}}>
                                                         <li style = {{fontWeight:"bold"}}>{ ro[0]}</li>
