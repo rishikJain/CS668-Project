@@ -174,6 +174,7 @@ router.post('/assetMitigations', async (req, res) => {
         assetId = req.body.assetId;
         if (assetId) {
             var data = await Model.findById({ '_id': assetId })
+            //console.log(JSON.stringify(data));
 
             for (let i = 0; i < data.asset.length; i++) {
                 var mitArr = [];
@@ -181,6 +182,7 @@ router.post('/assetMitigations', async (req, res) => {
                     for (let j = 0; j < data.asset[i].threats.length; j++) {
                         for (const key in data.asset[i].threats[0]) {
                             let mitigations = await mitigtions.find({ 'Technique': key }).distinct('Mitigation');
+                            //console.log('--mitigations--', mitigations);
                             for (let k = 0; k < mitigations.length; k++) {
                                 mitArr.push(mitigations[k]);
                             }
@@ -190,7 +192,7 @@ router.post('/assetMitigations', async (req, res) => {
                     }
                 }
             }
-            console.log('==mitigations',JSON.stringify(data));
+
 
             var sysThreatsArr = [];
             var score = '';
@@ -204,7 +206,6 @@ router.post('/assetMitigations', async (req, res) => {
             }
             const sortedThreatsData = sysThreatsArr.sort((a, b) => b[1] - a[1])
 
-            // console.log("--sortedArr",sortedThreatsData)
             let mitigationsSortedArr = [];
             let arrThreatMap = []
             for (let i=0; i<sortedThreatsData.length; i++){
@@ -220,10 +221,10 @@ router.post('/assetMitigations', async (req, res) => {
             for(let k=0; k<data.asset.length; k++){
                 data.asset[k]['arrayThreatMap'] = arrThreatMap
             }
+            console.log('--updated data--',JSON.stringify(data));
             var updatedResult = await Model.findByIdAndUpdate({ '_id': assetId }, data)
+            let uniq  = [... new Set(mitigationsSortedArr)];
 
-            let uniq  = [... new Set(mitigationsSortedArr)]
-            
             res.json({ result:{
                 mitigations : uniq,
                 systemRiskScore : score
@@ -241,22 +242,35 @@ router.post('/reduceRiskscore', async (req, res) => {
 
         let assetId = req.body.assetId;
         let mitigations = req.body.mitigations;
+        console.log('--params--', mitigations);
 
-        var data = await Model.findById({ '_id': assetId })
-        console.log(JSON.stringify(data.asset[0].arrayThreatMap))
-        const riskscore = data.asset[0].systemRiskScore - 0.05;
-        
+        let data = await Model.findById({ '_id': assetId });
+        let systemRiskScore = data.asset[0].systemRiskScore;
+        let techArr = [];
         for(let i=0; i<mitigations.length; i++){
-            for(let k=0;k<data.asset[0].arrayThreatMap.length; k++){
+            for(let k=0; k<data.asset[0].arrayThreatMap.length; k++){
                 if (data.asset[0].arrayThreatMap[k].value.includes(mitigations[i])){
-                    console.log('true');
+                    techArr.push(data.asset[0].arrayThreatMap[k].key);
                 }
             }            
         }
-
-        res.json({ score: Math.abs(riskscore) })
+        let getUniq = [... new Set(techArr)];
+        let finalArr = []
+        let sum =0;
+        for ( let i=0; i<getUniq.length; i++){
+            let cveProb = await threatProbMapping.find({ 'Technique': getUniq[i] }, { _id: 0, Technique: 0 });
+            let reducedProb = cveProb[0].Probability - 0.05;
+            if(reducedProb > 0){
+                finalArr.push(reducedProb);
+            }
+        }
+        finalArr.forEach(e => {
+            sum += e;
+        })
+        res.json({ score: systemRiskScore - sum })
     }
     catch (error) {
+        console.log(error);
         res.status(500).json({ message: error.message })
     }
 })
