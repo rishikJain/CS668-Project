@@ -3,33 +3,34 @@ This project served as the semester project for CS668
 
 In this project, we aim to analyze a system of different components like PCs, routers, switches, servers, databases etc. to come up with a system risk score and a possible list of controls. We then simulate applying these controls on assets to come up with a reduced risk score.
 
-We analyze the assets according to there CPE names and fetch the corresponding CVEs from the NIST database using public APIs
-Each asset can have multiple CVEs and based on that CVEs, we find the threats for those assets, the corresponding mitigations and list them in the most effective manner which can reduce the overall system risk score.
+We analyze the assets according to there CPE names and fetch the corresponding CVEs from the NIST database using public APIs. Each asset can have multiple CVEs and based on the CVEs, we find the threats for those assets, the corresponding mitigations and list them in the most effective manner which can reduce the overall system risk score.
 
 
 # Project Structure
 This project contains 3 parts
-1. Frontend 
-2. Backend
+1. Backend 
+2. Frontend
 3. Assesment model and datasets
 
-## Frontend
-Frontend is build using reactJs technology which consumes the APIs from backend. Based on the data from the APIs we update the details on the UI.
-
-To run the application in local host .We need to follow the following steps to run the application
-
-1) git clone <repo>
-
-2) cd frontend
-
-3) npm i or npm install
-
-4) npm start
-
-After final step (step 4) .you will see the running application in browser.
-
 ## Backend
-Backend part is build using NodeJs and database we have used is MongoDB, which is hosted on remote server on linux machine.
+NodeJS and MongoDB have been used in the backend. To run,
+```
+git clone <repo>
+cd backend
+npm i
+npm start
+```
+
+## Frontend
+Frontend is designed using ReactJS.
+After starting the backend server, to run the application,
+```
+cd frontend
+npm i
+npm start
+```
+You should see the running application in your browser.
+
 
 ## Assesment model and datasets
 Datasets contains the mappings for CVE and MITRE ATT&CK (tactics and techniques), threats and probabilities, threats and mitigations.
