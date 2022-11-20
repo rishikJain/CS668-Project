@@ -83,12 +83,16 @@ const Threat = (props) => {
                                         {row.asset}
                                     </TableCell>
                                     <TableCell >{row?.contribution ? row?.contribution : 0}</TableCell>
-                                    <TableCell >{row?.threats?.length !=0 ?row?.threats123?.map((ro, i) => (
-                                            (<React.Fragment key={i} >
-                                                    <ul style={{padding : "0px 0px 0px 13px"}}>
-                                                        <li style = {{fontWeight:"bold"}}>{ ro[0]}</li>
-                                                    </ul> </React.Fragment>)
-                                    )): "No threats Found"}</TableCell>
+                                    <TableCell >{row?.threats?.length !=0 ?
+                                     Object.keys(row?.threats[0]).map((key,index)=> (
+                                        <React.Fragment key={index} >
+                                              <ul style={{padding : "0px 0px 0px 13px"}}>
+                                                        <li style = {{fontWeight:"bold"}}>
+                                                            {key}:{row?.threats[0][key]}
+                                                            </li>
+                                                    </ul>
+                                        </React.Fragment>
+                                     )): "No threats Found"}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

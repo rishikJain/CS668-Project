@@ -216,14 +216,14 @@ const Risk = (props) => {
             <div className="margin-set">
               <TextField className="selectclass"
                 value={priority}
-                inputProps={{ min: 0 , max: 10 ,maxLength: 2}}
+                inputProps={{ min: 0 , max: 10,maxLength:2}}
                 label="Impact"
                 error={errorForPriority}
                 helperText={errorForPriority ? 'Required' : ''}
                 vvariant="standard"
                 type="text"
                 onChange={event => {
-                  setPriority(event.target.value)
+                  setPriority(Number(event.target.value))
                   seterrorForPriority(!(Boolean(event.target.value)))
                 }}
                 onKeyPress={(event) => {
