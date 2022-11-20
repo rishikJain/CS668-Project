@@ -16,7 +16,19 @@ This project contains 3 parts
 3. Assesment model and datasets
 
 ## Frontend
-Frontend is build using reactJs technology which consumes the APIs from backend. Based on the data from the APIs we update the details on the UI
+Frontend is build using reactJs technology which consumes the APIs from backend. Based on the data from the APIs we update the details on the UI.
+
+To run the application in local host .We need to follow the following steps to run the application
+
+1) git clone <repo>
+
+2) cd frontend
+
+3) npm i or npm install
+
+4) npm start
+
+After final step (step 4) .you will see the running application in browser.
 
 ## Backend
 Backend part is build using NodeJs and database we have used is MongoDB, which is hosted on remote server on linux machine.
