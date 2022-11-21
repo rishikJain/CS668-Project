@@ -67,9 +67,9 @@ const Threat = (props) => {
                                 <TableCell
                                     style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>Contribution
                                 </TableCell>
-                                <TableCell
+                                {/* <TableCell
                                     style={{ fontWeight: 'bold', backgroundColor: 'lavender' }}>Threats 
-                                </TableCell>
+                                </TableCell> */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -83,7 +83,7 @@ const Threat = (props) => {
                                         {row.asset}
                                     </TableCell>
                                     <TableCell >{row?.contribution ? row?.contribution : 0}</TableCell>
-                                    <TableCell >{row?.threats?.length !=0 ?
+                                    {/* <TableCell >{row?.threats?.length !=0 ?
                                      Object.keys(row?.threats[0]).map((key,index)=> (
                                         <React.Fragment key={index} >
                                               <ul style={{padding : "0px 0px 0px 13px"}}>
@@ -92,7 +92,7 @@ const Threat = (props) => {
                                                             </li>
                                                     </ul>
                                         </React.Fragment>
-                                     )): "No threats Found"}</TableCell>
+                                     )): "No threats Found"}</TableCell> */}
                                 </TableRow>
                             ))}
                         </TableBody>
